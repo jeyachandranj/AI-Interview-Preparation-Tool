@@ -158,15 +158,9 @@ class Chatbot {
 
         if (completion.choices && completion.choices[0] && completion.choices[0].message) {
             const aiMessage = completion.choices[0].message.content.trim();
-
-            // Check if the response starts with '{' and ends with '}'
             if (aiMessage.startsWith('{') && aiMessage.endsWith('}')) {
-                // Parse the JSON response from the AI
                 const parsedResponse = JSON.parse(aiMessage);
-
                 const { aiResponse, score, section } = parsedResponse;
-
-                // Save the conversation to the database
                 await Chat.create({
                     name: name,
                     user_msg: userInput,
