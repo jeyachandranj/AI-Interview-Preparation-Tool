@@ -2,10 +2,11 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
+  width: 1000px;
 }
 
 .header {
-  background: #333;
+  background: #ffffff;
   color: #fff;
   display: flex;
   justify-content: space-between;
@@ -77,7 +78,7 @@ body {
 }
 
 footer {
-  background: #333;
+  background: #fffdfd;
   color: #fff;
   padding: 2em 1em;
   text-align: center;

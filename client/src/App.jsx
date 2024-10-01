@@ -5,7 +5,7 @@ import Advance from './pages/Advance';
 import UploadPage from './components/Resume/UploadPage';
 import DisplayPage from './components/Resume/DisplayPage';
 import ResumeBuilder from './components/Resume/ResumeBuilder';
-
+import Yesorno from './components/Resume/yesorno';
 function App() {
   const location = useLocation();
   const [resumeData, setResumeData] = useState(null);
@@ -13,9 +13,10 @@ function App() {
 
   return (
     <div className="App">
-      <Header />
+      {/* <Header /> */}
       <Routes>
-        <Route path="/" element={<UploadPage setResumeData={setResumeData} />} />
+        <Route path="/" element={<Yesorno />} />
+        <Route path="/UploadPage" element={<UploadPage setResumeData={setResumeData} />} />
         <Route path="/display" element={<DisplayPage resumeData={resumeData} />} />
         <Route path="/resume-builder" element={<ResumeBuilder resumeData={resumeData} />}/>
         <Route path="/interview" element={<Advance />} />

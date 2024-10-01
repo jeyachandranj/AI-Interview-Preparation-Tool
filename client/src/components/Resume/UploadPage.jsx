@@ -5,6 +5,7 @@ import styles from './UploadPage.module.css'; // Import the CSS module
 
 function UploadPage({ setResumeData }) {
     const [file, setFile] = useState(null);
+    const [selectedFile, setSelectedFile] = useState('');
     const [loading, setLoading] = useState(false); // Loading state
     const navigate = useNavigate();
 
@@ -45,32 +46,36 @@ function UploadPage({ setResumeData }) {
 
     return (
         <div className={styles.pageContainer}>
+            <div className={styles.progressBar}>
+                <div className={styles.step}>1</div>
+                <div className={styles.line}></div>
+                <div className={`${styles.step} ${styles.active}`}>2</div>
+                <div className={styles.line}></div>
+                <div className={styles.step}>3</div>
+            </div>
             {loading ? (
                 <div className={styles.loadingScreen}>
                     <div className={styles.spinner}></div>
                     <p>Processing your resume, please wait...</p>
                 </div>
             ) : (
-                <div className={styles.splitContainer}>
-                    {/* Left side - Upload Section */}
-                    <div className={styles.uploadContainer}>
-                        <h2>Upload Your Resume</h2>
-                        <form onSubmit={handleSubmit}>
-                            <input type="file" onChange={handleFileChange} />
-                            <div className={`${styles.box}`} onClick={handleSubmit}>
-                                Upload
-                            </div>
-                        </form>
+ 
+                <div className={styles.uploadContainer}>
+                  <h2>Upload Your Resume</h2>
+                  <form onSubmit={handleSubmit}>
+                    <input
+                      type="file"
+                      onChange={handleFileChange}
+                      className={styles.inputFile}
+                    />
+                    <div className={styles.box} onClick={handleSubmit}>
+                      Choose file
                     </div>
-
-                    {/* Right side - Build from Scratch Section */}
-                    <div className={styles.buildContainer}>
-                        <h2>Build from Scratch</h2>
-                        <div className={styles.box} onClick={handleBuildFromScratch}>
-                            Build Resume from Scratch
-                        </div>
-                    </div>
-                </div>
+                  </form>
+                  {/* {selectedFile && (
+                    <p className={styles.fileName}>Selected file: {selectedFile}</p>
+                  )} */}
+                </div>         
             )}
         </div>
     );

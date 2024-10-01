@@ -1,11 +1,9 @@
-/* UploadPage.module.css */
+
 .pageContainer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     height: 100vh;
-    background-color: #121212; /* Dark background */
-    color: #e0e0e0; /* Light text */
+    width: 100%;
+    background-color: #ffffff;
+    color: #e0e0e0;
     font-family: 'Arial', sans-serif;
     overflow: hidden;
     animation: fadeIn 1.5s ease-in-out;
@@ -21,52 +19,55 @@
 }
 
 .splitContainer {
-    display: flex;
-    justify-content: space-between;
-    width: 90%;
-    max-width: 900px;
+ 
     opacity: 0;
-    transform: translateY(100px); /* Initial position below the screen */
-    animation: slideUp 5.0s ease-out forwards; /* Slide animation */
+    transform: translateY(100px); 
+    animation: slideUp 5.0s ease-out forwards; 
+    display: flex;
+    justify-content: center; 
+    align-items: center;    
+    height: 80vh;     
 }
 
 @keyframes slideUp {
     to {
         opacity: 1;
-        transform: translateY(0); /* Final position at the original location */
+        transform: translateY(0); 
     }
 }
 
-.uploadContainer, .buildContainer {
+.uploadContainer{
     flex: 1;
-    margin: 0 40px;
-    padding: 40px;
-    background-color: #1c1c1c;
+    margin:  40px 650px;
+    background-color: #000000;
+    justify-content: center;
     border-radius: 10px;
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
     text-align: center;
-    transition: transform 0.5s ease, box-shadow 0.5s ease; /* Smooth transition for hover effect */
+    width:1300px;
+    margin-top: 10%;
+    height: 320px;
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
 }
 
-/* Hover effect for the containers */
+
+
 .uploadContainer:hover, .buildContainer:hover {
-    transform: scale(1.05); /* Slightly enlarges the container */
-    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.6); /* Darker shadow on hover */
+    transform: scale(1.05);
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.6); 
 }
 
 h2 {
     font-size: 1.8rem;
     margin-bottom: 20px;
-    color: #ffffff;
+    color: #000000;
+    padding-top: 40px;
 }
 
 form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    margin: 0 70px;
     gap: 20px;
-    width: 100%;
-    max-width: 400px;
+    padding-top: 40px;
 }
 
 input[type="file"] {
@@ -76,6 +77,7 @@ input[type="file"] {
     color: #ffffff;
     border: 1px solid #444;
     border-radius: 5px;
+    margin-bottom: 30px;
 }
 
 input[type="file"]::file-selector-button {
@@ -106,7 +108,7 @@ input[type="file"]::file-selector-button:hover {
 
 .box:hover {
     background-color: #1565c0;
-    transform: scale(1.05); /* Hover effect to make the button pop */
+    transform: scale(1.05); 
 }
 
 .loadingScreen {
@@ -150,3 +152,114 @@ input[type="file"]::file-selector-button:hover {
         margin-bottom: 10px;
     }
 }
+
+.line {
+    width: 220px;
+    height: 3px;
+    background-color: #e0e0e0;
+    
+}
+
+@media (max-width: 220px) {
+    .line {
+        width: 20px; 
+        height: 2.5px; 
+    }
+}
+
+@media (max-width: 480px) {
+    .line {
+        width: 20px; 
+        height: 2px;  
+    }
+}
+
+
+.progressBar {
+    display: flex;
+    align-items: center;
+    margin-top: 50px;
+    margin-left: 10%;
+    margin-bottom: auto;
+    width: 80%; 
+    justify-content: center; 
+    padding: 0 20px; 
+}
+
+@media (max-width: 768px) {
+    .progressBar {
+        margin-top: 30px; 
+        padding: 0 15px; 
+    }
+    .line{
+        width: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .progressBar {
+        margin-top: 20px;
+        padding: 0 10px; 
+    }
+}
+
+.step {
+    background-color: #e0e0e0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: #fff;
+}
+.active {
+    background-color: #4caf50; 
+}
+
+.splitContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f5f5f5;
+  }
+  
+  .uploadContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    border: 2px dashed #d9d9d9;
+    background-color: #f4f7fc;
+    border-radius: 5px;
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+  }
+  
+  .uploadContainer h2 {
+    margin-bottom: 20px;
+  }
+  
+  .inputFile {
+    margin-bottom: 10px;
+  }
+  
+  .box {
+    display: inline-block;
+    background-color: #00c689;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  .fileName {
+    margin-top: 10px;
+    color: #8795a1;
+    font-size: 1em;
+  }
