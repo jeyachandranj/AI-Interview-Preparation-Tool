@@ -3,16 +3,23 @@ body {
     font-family: 'Roboto', sans-serif;
     line-height: 1.6;
     color: #ffffff;
-    background-color: #f4f4f4;
+    /* background-color: #f4f4f4;
+    height: 100%; */
     margin: 0;
     padding: 0;
   }
   
+  .main{
+    /* background-color: white; */
+    height: 200%;
+  }
+
   .displayPageContainer {
     max-width: 800px;
+    /* display: none; */
     margin: 0 auto;
     padding: 2rem;
-    background-color: #ffffff;
+    /* background-color: #ffffff; */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     border-color: orange;
@@ -180,3 +187,7 @@ body {
     }
   }
 
+.buttonSection{
+  display: flex;
+  justify-content: center;
+}
