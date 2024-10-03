@@ -342,8 +342,8 @@ const UserInput = ({ setResponse, isChatbotReady, setIsChatbotReady, response })
                   ref={inputRef}
                   onChange={(e) => setSpeechText(e.target.value)}
                   style={{
-                    color: "black",
-                    backgroundColor: "white",
+                    color: "white",
+                    backgroundColor: "black",
                     fontSize: "30px",
                     marginLeft: "550px",
                     width: "900px",
