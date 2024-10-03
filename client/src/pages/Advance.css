@@ -95,8 +95,8 @@ html {
 .chatbotSettings {
 	position: fixed;
 	top: 10vh;
-	width: calc(45% - 4em);
-	height: calc(60vh - 5em);
+	width: calc(55% - 4em);
+	height: calc(70vh - 5em);
 	bottom: 10vh;
 	left: 0;
 	right: 0;
@@ -197,7 +197,7 @@ html {
 	gap: 0.5em;
 	grid-template-columns: 1fr 1fr;
 	height: 80%;
-	margin-bottom: 50px;
+	margin-bottom: 150px;
 	column-gap: 2em;
 }
 

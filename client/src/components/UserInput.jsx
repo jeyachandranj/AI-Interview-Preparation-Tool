@@ -345,7 +345,7 @@ const UserInput = ({ setResponse, isChatbotReady, setIsChatbotReady, response })
                     color: "white",
                     backgroundColor: "black",
                     fontSize: "30px",
-                    marginLeft: "550px",
+                    marginLeft: "700px",
                     width: "900px",
                   }}
                   placeholder="Type a message..."
@@ -361,7 +361,7 @@ const UserInput = ({ setResponse, isChatbotReady, setIsChatbotReady, response })
           </div>
 
           {!visible && (
-            <div className="timerDisplay">
+            <div className="timerDisplay" style={{marginLeft:"300px"}}>
               <p className="timerText">{formatTime(timer)}</p>
             </div>
           )}

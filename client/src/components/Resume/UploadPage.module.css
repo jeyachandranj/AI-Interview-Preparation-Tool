@@ -214,6 +214,11 @@ input[type="file"]::file-selector-button:hover {
     font-size: 18px;
     color: #fff;
 }
+
+.stem:first-child{
+    background-color: #4caf50;
+}
+
 .active {
     background-color: #4caf50; 
 }

@@ -1,7 +1,7 @@
 from groq import Groq
 import json
 client = Groq(
-    api_key="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"
+    api_key="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"
 )
 def parserfn(message):
     result = ''

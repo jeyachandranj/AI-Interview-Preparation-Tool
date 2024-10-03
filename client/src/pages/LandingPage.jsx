@@ -13,7 +13,6 @@ import Footer from '../components/LandingPage/Footer';
 const App = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  // Toggle dropdown menu
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };

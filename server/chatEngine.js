@@ -36,7 +36,7 @@ class Chatbot {
         dotenv.config();
         this.socket_id = null;
         this.groq = new Groq({
-            apiKey: "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",
+            apiKey: "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",
         });
 
         if (public_path) {
@@ -158,8 +158,8 @@ class Chatbot {
 
         if (completion.choices && completion.choices[0] && completion.choices[0].message) {
             const aiMessage = completion.choices[0].message.content.trim();
-            if (aiMessage.startsWith('{') && aiMessage.endsWith('}')) {
                 const parsedResponse = JSON.parse(aiMessage);
+                console.log("response",parsedResponse)
                 const { aiResponse, score, section } = parsedResponse;
                 await Chat.create({
                     name: name,
@@ -180,10 +180,7 @@ class Chatbot {
 
                 return aiResponse;
 
-            } else {
-                console.log("AI response is not valid JSON:", aiMessage);
-                throw new Error("AI response is not valid JSON or is incomplete");
-            }
+           
         } else {
             console.log("Invalid completion format:", completion);
             throw new Error("Invalid completion format");
@@ -196,7 +193,7 @@ class Chatbot {
     
         let elapsedTime = interviewDuration;
         elapsedTime = Math.floor(elapsedTime / 1000);
-        
+
         let completedStage;
         let currentStage;
         try {

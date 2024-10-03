@@ -6,6 +6,11 @@ import DisplayPage from './components/Resume/DisplayPage';
 import ResumeBuilder from './components/Resume/ResumeBuilder';
 import Yesorno from './components/Resume/yesorno';
 import LandingPage from './pages/LandingPage';
+import HomeSkills from './pages/HomeSkills';
+import Reading from './pages/Reading';
+import Writing from './pages/Writing';
+import Listen from './pages/Listening';
+import Speaking from './pages/Speaking';
 function App() {
   const location = useLocation();
   const [resumeData, setResumeData] = useState(null);
@@ -13,7 +18,6 @@ function App() {
 
   return (
     <div className="App">
-      {/* <Header /> */}
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/resume" element={<Yesorno />} />
@@ -21,6 +25,11 @@ function App() {
         <Route path="/display" element={<DisplayPage resumeData={resumeData} />} />
         <Route path="/resume-builder" element={<ResumeBuilder resumeData={resumeData} />}/>
         <Route path="/interview" element={<Advance />} />
+        <Route path="/skills" element={<HomeSkills />} />
+        <Route path="/read" element={<Reading />} />
+        <Route path="/write" element={<Writing />} />
+        <Route path="/listen" element={<Listen/>}/>
+        <Route path="/speak" element={<Speaking/>}/>
       </Routes>
     </div>
   );

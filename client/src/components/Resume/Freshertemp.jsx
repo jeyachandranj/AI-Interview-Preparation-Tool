@@ -1,6 +1,8 @@
 import React,{useState} from 'react';
 import jsPDF from 'jspdf';
 import './Freshertemp.css';
+import { Link } from 'react-router-dom';
+
 
 const Freshertemp = ({ formData }) => {
     const [pdfUrl, setPdfUrl] = useState('');
@@ -126,8 +128,8 @@ const Freshertemp = ({ formData }) => {
             <button className="pdf-download-button" onClick={generatePDF}>Download as PDF</button>
             {pdfUrl && (
                 <div>
-                    <button className="pdf-download-button" onClick={copyPdfUrl}>Copy PDF URL</button>
-                    <a href={pdfUrl} target="_blank" rel="noopener noreferrer">Open PDF in new tab</a>
+                    <Link to='/Interview'><button className="pdf-download-button">Go To Interview</button></Link>
+                    {/* <a href={pdfUrl} target="_blank" rel="noopener noreferrer">Open PDF in new tab</a> */}
                 </div>
             )}
         </div>

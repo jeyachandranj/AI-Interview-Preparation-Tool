@@ -42,14 +42,14 @@ const SettingsDisplay = ({ settings, setSettings, visible, setVisible }) => {
   
 
   return (
-    <div className="settingsContainer">
+    <div className="settingsContainer" >
       <div className="closeButton" onClick={() => setVisible(false)}>
         <i className="fas fa-times">
           <h3 style={{ fontSize: "20px", marginTop: "10px" }}>X</h3>
         </i>
       </div>
-      <h2 style={{ textAlign: "center" }}>Settings</h2>
-      <form className="settings" onSubmit={updateSettings} ref={formRef}>
+      <h2 style={{ textAlign: "center",color:"white"}}>Settings</h2>
+      <form className="settings" onSubmit={updateSettings} ref={formRef} >
         <div className="setting">
           <label htmlFor="job_title">Job Title</label>
           <input
