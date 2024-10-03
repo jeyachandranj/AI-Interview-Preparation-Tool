@@ -2,9 +2,10 @@
   
   .displayPageContainer {
     max-width: 800px;
+    /* display: none; */
     margin: 0 auto;
     padding: 2rem;
-    background-color: #ffffff;
+    /* background-color: #ffffff; */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     border-color: orange;
@@ -172,3 +173,7 @@
     }
   }
 
+.buttonSection{
+  display: flex;
+  justify-content: center;
+}
