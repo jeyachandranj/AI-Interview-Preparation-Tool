@@ -1,9 +1,33 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 
 const SettingsDisplay = ({ settings, setSettings, visible, setVisible }) => {
   const formRef = useRef(null);
   const [newSettings, setNewSettings] = useState(settings);
-  
+  const [isTabLockActive,setIsTabLockActive] = useState(false);
+  const [tabSwitchCount,setTabSwitchCount] = useState(0);
+  const [popupVisible, setPopupVisible] = useState(false);
+
+
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+        if (document.hidden && isTabLockActive) {
+            alert('You cannot switch tabs after saving your settings.');
+            // Increment the tab switch count
+            setTabSwitchCount(prevCount => prevCount + 1);
+        }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    return () => {
+        document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+}, [isTabLockActive]);
+
+const handleSave = () => {
+    setIsTabLockActive(true);
+    console.log('Settings saved and tab switching is now restricted.');
+};
 
   const updateSettings = async (e) => {
     e.preventDefault();
@@ -19,6 +43,7 @@ const SettingsDisplay = ({ settings, setSettings, visible, setVisible }) => {
     if (validateUrl(e.target.link_to_resume.value)) {
       setSettings(updatedSettings);
       setVisible(false);
+      await checkObjectDetection();
     } else {
       console.log("Invalid settings");
       formRef.current.classList.add("invalid");
@@ -38,6 +63,20 @@ const SettingsDisplay = ({ settings, setSettings, visible, setVisible }) => {
       return false;
     }
   }
+
+  const checkObjectDetection = async () => {
+    try {
+      const response = await fetch("http://127.0.0.1:5000/detect_objects"); // Flask API call
+      const data = await response.json();
+
+      if (data.detected === true) {
+        // If the backend detects an object, show the popup
+        setPopupVisible(true);
+      }
+    } catch (error) {
+      console.error("Error during object detection:", error);
+    }
+  };
 
   
 
@@ -111,11 +150,30 @@ const SettingsDisplay = ({ settings, setSettings, visible, setVisible }) => {
         </div>
 
         <div className="setting__button">
-          <button className="btn_outline" type="submit" style={{ width: "300px" }} >
+          <button className="btn_outline" type="submit" style={{ width: "300px" }}  onClick={handleSave}>
             Save
           </button>
         </div>
       </form>
+
+
+
+      {popupVisible && (
+        <div className="popup">
+          <div className="popup-content">
+            <h2>Interview is Ended</h2>
+            <button onClick={() => setPopupVisible(false)}>Close</button>
+          </div>
+        </div>
+      )}
+
+      <div className="videoFeed" style={{ position: "absolute", top: "10px", right: "10px", width: "300px", height: "200px", border: "2px solid #ccc" }}>
+        <img
+          src="http://127.0.0.1:5000/video_feed"
+          alt="Video Stream"
+          style={{ width: "100%", height: "100%", objectFit: "cover" }}
+        />
+      </div>
 
       
     </div>
