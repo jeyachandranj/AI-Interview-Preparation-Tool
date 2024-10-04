@@ -214,6 +214,28 @@ const UserInput = ({ setResponse, isChatbotReady, setIsChatbotReady, response })
   };
 
 
+  const [alert, setAlert] = useState(null);
+
+  const fetchAlert = async () => {
+    const response = await fetch('http://localhost:8080/alerts');
+    if (response.ok) {
+      const data = await response.json();
+      if (data.alert) {
+        setAlert(data.alert);
+        alert("Malpractie Detected")
+      }
+    }
+  };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      fetchAlert();
+    }, 1000); // Poll every second
+
+    return () => clearInterval(interval);
+  }, []);
+
+
 
 
   const generatePDF = () => {
@@ -297,6 +319,16 @@ const UserInput = ({ setResponse, isChatbotReady, setIsChatbotReady, response })
         <p>Completed Stages: {completedStages}</p>
       </div>
 
+      {!visible && (
+                <div>
+                <img
+                  src="http://127.0.0.1:8080/video_feed"  // Fetching video feed from Flask
+                  alt="Video Feed"
+                  style={{ width: '300px', maxWidth: '600px', marginLeft:"1600px",border: '1px solid black' }} // Adjust styles as necessary
+                />
+              </div>
+              )}
+
       {popupVisible && (
         <div className="popup" style={{ color: "black" }}>
           <div className="popup-content">
@@ -334,6 +366,8 @@ const UserInput = ({ setResponse, isChatbotReady, setIsChatbotReady, response })
                       height: "100px",
                       marginBottom: "50px",
                       marginLeft: "200px",
+                      marginTop:"100px"
+
                     }}
                   />
                 </div>
@@ -347,6 +381,8 @@ const UserInput = ({ setResponse, isChatbotReady, setIsChatbotReady, response })
                     fontSize: "30px",
                     marginLeft: "700px",
                     width: "900px",
+                    height:"80px",
+                    marginTop:"150px"
                   }}
                   placeholder="Type a message..."
                 />
@@ -356,15 +392,21 @@ const UserInput = ({ setResponse, isChatbotReady, setIsChatbotReady, response })
                 >
                   <i className="fas fa-cog"></i>
                 </div>
+                
+
               </form>
             </div>
           </div>
 
           {!visible && (
-            <div className="timerDisplay" style={{marginLeft:"300px"}}>
+            <div className="timerDisplay" style={{marginLeft:"300px", marginTop:"150px" }}>
               <p className="timerText">{formatTime(timer)}</p>
             </div>
           )}
+
+
+           
+              
 
 
 

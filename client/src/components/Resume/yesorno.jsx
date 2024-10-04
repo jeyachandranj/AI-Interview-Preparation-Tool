@@ -37,10 +37,10 @@ function Yesorno() {
             </h2>
 
             <div className={styles.buttonContainer}>
-                <button className={styles.yesButton} onClick={handleExistingResume}>
+                <button className={styles.yesButton} onClick={handleExistingResume} style={{width:"80px"}}>
                     Yes
                 </button>
-                <button className={styles.noButton} onClick={handleBuildFromScratch}>
+                <button className={styles.noButton} onClick={handleBuildFromScratch} style={{width:"80px"}}>
                     No
                 </button>
             </div>

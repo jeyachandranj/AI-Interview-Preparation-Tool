@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './DisplayPage.module.css'; // Import the enhanced CSS module
+import ProgressBar from './ProgressBar';
 
 const DisplayPage = ({ resumeData }) => {
   const [formData, setFormData] = useState(() => ({
@@ -168,7 +169,6 @@ const DisplayPage = ({ resumeData }) => {
     {
       title: 'Personal Information',
       content: (
-        // Personal Information section content
         <section className={styles.formSection}>
           <h2 className={styles.displayPageSubHeader}>Personal Information</h2>
           {['Name', 'Email', 'PhoneNumber', 'GitHub', 'LinkedIn', 'Role'].map(field => (
@@ -365,7 +365,7 @@ const DisplayPage = ({ resumeData }) => {
                   />
                 </p>
               ))}
-              <button className={styles.displayPageButton} onClick={() => handleRemoveEducation(index)}>Remove Education</button>
+              <button className={styles.displayPageButton} onClick={() => handleRemoveEducation(index)} style={{width:"300px"}}>Remove Education</button>
             </div>
           ))}
 
@@ -381,7 +381,7 @@ const DisplayPage = ({ resumeData }) => {
                 className={styles.displayPageInput}
               />
             ))}
-            <button className={styles.displayPageButton} onClick={handleAddEducation}>Add Education</button>
+            <button className={styles.displayPageButton} onClick={handleAddEducation} style={{width:"300px"}}>Add Education</button>
           </div>
         </section>
       ),
@@ -416,7 +416,7 @@ const DisplayPage = ({ resumeData }) => {
                   )}
                 </p>
               ))}
-              <button className={styles.displayPageButton} onClick={() => handleRemoveProject(index)}>Remove Project</button>
+              <button className={styles.displayPageButton} onClick={() => handleRemoveProject(index)} style={{width:"300px"}}>Remove Project</button>
             </div>
           ))}
           {/* Add New Project Section */}
@@ -442,7 +442,7 @@ const DisplayPage = ({ resumeData }) => {
                 )}
               </p>
             ))}
-            <button className={styles.displayPageButton} onClick={handleAddProject}>Add Project</button>
+            <button className={styles.displayPageButton} onClick={handleAddProject} style={{width:"300px"}}>Add Project</button>
           </div>
         </section>
       ),
@@ -477,7 +477,7 @@ const DisplayPage = ({ resumeData }) => {
                   )}
                 </p>
               ))}
-              <button className={styles.displayPageButton} onClick={() => handleRemoveExperience(index)}>Remove Experience</button>
+              <button className={styles.displayPageButton} onClick={() => handleRemoveExperience(index)} style={{width:"300px"}}>Remove Experience</button>
             </div>
           ))}
 
@@ -504,7 +504,7 @@ const DisplayPage = ({ resumeData }) => {
                 )}
               </p>
             ))}
-            <button className={styles.displayPageButton} onClick={handleAddExperience}>Add Experience</button>
+            <button className={styles.displayPageButton} onClick={handleAddExperience} style={{width:"300px"}}>Add Experience</button>
           </div>
         </section>
       ),
@@ -534,7 +534,7 @@ const DisplayPage = ({ resumeData }) => {
               onChange={(e) => setNewAchievement(e.target.value)}
               className={styles.displayPageTextarea}
             />
-            <button className={styles.displayPageButton} onClick={handleAddAchievement}>Add Achievement</button>
+            <button className={styles.displayPageButton} onClick={handleAddAchievement} style={{width:"300px"}}>Add Achievement</button>
           </div>
         </section>
       ),
@@ -565,7 +565,7 @@ const DisplayPage = ({ resumeData }) => {
               onChange={(e) => setNewCertification(e.target.value)}
               className={styles.displayPageInput}
             />
-            <button className={styles.displayPageButton} onClick={handleAddCertification}>Add Certification</button>
+            <button className={styles.displayPageButton} onClick={handleAddCertification} style={{width:"300px"}}>Add Certification</button>
           </div>
         </section>
       ),
@@ -586,7 +586,9 @@ const DisplayPage = ({ resumeData }) => {
 
   return (
     <div className={styles.displayPageContainer}>
-      <h1 className={styles.displayPageHeader}>Resume Details</h1>
+     <h1 className={styles.displayPageHeader}>Resume Details</h1>
+      <ProgressBar currentSection={currentSection} totalSections={sections.length} />
+    
       {sections[currentSection].content}
       <section className={styles.buttonSection}>
       {

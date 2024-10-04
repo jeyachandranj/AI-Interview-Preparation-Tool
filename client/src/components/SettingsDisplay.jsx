@@ -5,7 +5,6 @@ const SettingsDisplay = ({ settings, setSettings, visible, setVisible }) => {
   const [newSettings, setNewSettings] = useState(settings);
   const [isTabLockActive,setIsTabLockActive] = useState(false);
   const [tabSwitchCount,setTabSwitchCount] = useState(0);
-  const [popupVisible, setPopupVisible] = useState(false);
 
 
   useEffect(() => {
@@ -64,19 +63,7 @@ const handleSave = () => {
     }
   }
 
-  const checkObjectDetection = async () => {
-    try {
-      const response = await fetch("http://127.0.0.1:5000/detect_objects"); // Flask API call
-      const data = await response.json();
-
-      if (data.detected === true) {
-        // If the backend detects an object, show the popup
-        setPopupVisible(true);
-      }
-    } catch (error) {
-      console.error("Error during object detection:", error);
-    }
-  };
+  
 
   
 
@@ -158,22 +145,7 @@ const handleSave = () => {
 
 
 
-      {popupVisible && (
-        <div className="popup">
-          <div className="popup-content">
-            <h2>Interview is Ended</h2>
-            <button onClick={() => setPopupVisible(false)}>Close</button>
-          </div>
-        </div>
-      )}
-
-      <div className="videoFeed" style={{ position: "absolute", top: "10px", right: "10px", width: "300px", height: "200px", border: "2px solid #ccc" }}>
-        <img
-          src="http://127.0.0.1:5000/video_feed"
-          alt="Video Stream"
-          style={{ width: "100%", height: "100%", objectFit: "cover" }}
-        />
-      </div>
+      
 
       
     </div>

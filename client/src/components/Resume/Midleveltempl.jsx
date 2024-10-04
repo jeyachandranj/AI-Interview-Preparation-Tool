@@ -1,7 +1,5 @@
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 import jsPDF from 'jspdf';
-import './Midleveltempl.css';
-import { Link } from 'react-router-dom';
 
 const Midleveltempl = ({ formData }) => {
     const [pdfUrl, setPdfUrl] = useState('');
@@ -10,28 +8,22 @@ const Midleveltempl = ({ formData }) => {
         const pdf = new jsPDF({
             orientation: 'portrait',
             unit: 'pt',
-            format: 'a4'
+            format: 'a4',
         });
 
-        // Get the HTML content for the resume
         const content = document.getElementById('resume-template-2');
-        
-        // Add content to the PDF using the html method of jsPDF
         pdf.html(content, {
             callback: (pdf) => {
-                // Save the PDF to a Blob
                 const pdfBlob = pdf.output('blob');
-                // Create a URL for the Blob
                 const pdfUrl = URL.createObjectURL(pdfBlob);
                 setPdfUrl(pdfUrl);
-                // Automatically download the PDF
                 pdf.save('resume.pdf');
             },
-            margin: [20, 20, 20, 20], // Margin for the document
-            autoPaging: true,         // Auto page handling for long content
-            html2canvas: { scale: 0.6 }, // Reduces size to fit better in PDF
-            x: 20,                    // X position
-            y: 20                     // Y position
+            margin: [20, 20, 20, 20],
+            autoPaging: true,
+            html2canvas: { scale: 0.6 },
+            x: 20,
+            y: 20,
         });
     };
 
@@ -45,23 +37,24 @@ const Midleveltempl = ({ formData }) => {
 
     const renderSection = (title, content) => {
         if (!content || content.length === 0) return null;
-   
+
         if (title === 'Certifications' || title === 'Languages' || title === 'Hobbies' || title === 'Areas of Interest' || title === 'Achievements' || title === 'Leadership Qualities') {
             return (
-                <div className="section">
-                    <div className="section-heading">{title}</div>
-                    <ul>
+                <div className="mb-5">
+                    <div className="font-bold uppercase text-lg">{title}</div>
+                    <ul className="list-none pl-0">
                         {content.map((item, index) => (
-                            <li key={index}>{item}</li>
+                            <li key={index} className="mb-2">
+                                <span className="inline-block text-gray-800 font-bold mr-1">&bull;</span>{item}
+                            </li>
                         ))}
                     </ul>
                 </div>
             );
         } else {
-            // Other sections remain unchanged
             return (
-                <div className="section">
-                    <div className="section-heading">{title}</div>
+                <div className="mb-5">
+                    <div className="font-bold uppercase text-lg">{title}</div>
                     {content.map((item, index) => (
                         <div key={index}>
                             {Object.entries(item).map(([key, value]) => (
@@ -79,67 +72,61 @@ const Midleveltempl = ({ formData }) => {
             );
         }
     };
-   
 
     const renderResume = () => {
         if (!formData.CareerLevel) {
             return <p>Career Level not specified</p>;
         }
-            return (
-                <>
-                    {formData.CareerObjective && (
-                        <div className="section">
-                            <div className="section-heading">Career Objective</div>
-                            <p>{formData.CareerObjective}</p>
-                        </div>
-                    )}
-                    {renderSection('Experience', formData.Experience)}
-                    {renderSection('Projects', formData.Projects)}
-                    {renderSection('Certifications', formData.Certifications)}
-                    {renderSection('Languages', formData.Languages)}
-                    {renderSection('Achievements',formData.Achievements)}
-                    {renderSection('Leadership Qualities', formData.LeadershipQualities)}
-                </>
-            );
-        }
-   
+        return (
+            <>
+                {formData.CareerObjective && (
+                    <div className="mb-5">
+                        <div className="font-bold uppercase text-lg">Career Objective</div>
+                        <p>{formData.CareerObjective}</p>
+                    </div>
+                )}
+                {renderSection('Experience', formData.Experience)}
+                {renderSection('Projects', formData.Projects)}
+                {renderSection('Certifications', formData.Certifications)}
+                {renderSection('Languages', formData.Languages)}
+                {renderSection('Achievements', formData.Achievements)}
+                {renderSection('Leadership Qualities', formData.LeadershipQualities)}
+            </>
+        );
+    };
 
     return (
-        <div className="resume-container">
-            <div id="resume-template-2">
-                <div className="header">
-                    <div className="left-section">
-                        <p className="name">{formData.Name || ''}</p>
-                        
+        <div className="p-5 max-w-7xl mx-auto font-sans text-gray-900">
+            <div id="resume-template-2" className="bg-white p-4">
+                <div className="flex justify-between items-start mb-6 flex-wrap">
+                    <div className="flex-1 text-left mr-5">
+                        <p className="text-2xl font-bold mb-1">{formData.Name || ''}</p>
                     </div>
-                    <div className="right-section">
-                        <div className="contact-info">
-                            {/* Phone and email on one line */}
-                            <div className="phone-email">
+                    <div className="flex-1 text-right flex flex-col items-end">
+                        <div className="flex flex-col items-end gap-2">
+                            <div className="flex gap-4">
                                 {formData.PhoneNumber && <p>Phone: {formData.PhoneNumber}</p>}
-                                {formData.Email && <p>Email:{formData.Email}</p>}
+                                {formData.Email && <p>Email: {formData.Email}</p>}
                             </div>
-                            {/* Social links on a separate line */}
-                            <div className="social-links">
+                            <div className="flex gap-4">
                                 {formData.GitHub && <p>GitHub: <a href={formData.GitHub} target="_blank" rel="noopener noreferrer">{formData.GitHub}</a></p>}
                                 {formData.LinkedIn && <p>LinkedIn: <a href={formData.LinkedIn} target="_blank" rel="noopener noreferrer">{formData.LinkedIn}</a></p>}
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <div className="resume-divider"></div>
+                <div className="border-b-4 border-black mb-6"></div>
                 {renderResume()}
             </div>
-            <button className="pdf-download-button" onClick={generatePDF}>Download as PDF</button>
+            <button className="block mx-auto my-5 py-2 px-5 text-lg bg-blue-600 text-white rounded hover:bg-blue-800" onClick={generatePDF}>Download as PDF</button>
             {pdfUrl && (
-                <div>
-                <Link to='/Interview'><button className="pdf-download-button">Go To Interview</button></Link>
-                {/* <a href={pdfUrl} target="_blank" rel="noopener noreferrer">Open PDF in new tab</a> */}
-            </div>
+                <div className="text-center">
+                    <button className="py-2 px-5 text-lg bg-blue-600 text-white rounded hover:bg-blue-800" onClick={copyPdfUrl}>Copy PDF URL</button>
+                    <a href={pdfUrl} target="_blank" rel="noopener noreferrer" className="block mt-4 text-blue-500">Open PDF in new tab</a>
+                </div>
             )}
         </div>
     );
 };
 
-export default Midleveltempl ;
+export default Midleveltempl;

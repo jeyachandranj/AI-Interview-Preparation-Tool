@@ -1,0 +1,30 @@
+/* ProgressBar.module.css */
+.progressContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Align items to the left */
+    width: 100%;
+    margin-bottom: 20px; /* Add some space below the progress bar */
+  }
+  
+  .progressLabel {
+    font-weight: bold;
+    margin-bottom: 5px; /* Space between label and bar */
+  }
+  
+  .progressBar {
+    width: 100%; /* Full width */
+    height: 20px; /* Height of the bar */
+    background-color: #e0e0e0; /* Background color for the bar */
+    border-radius: 5px; /* Optional: rounded corners */
+  }
+  
+  .progress {
+    height: 100%; /* Fill height */
+    border-radius: 5px; /* Optional: rounded corners */
+  }
+  
+  .progressPercentage {
+    margin-top: 5px; /* Space between bar and percentage */
+  }
+  
