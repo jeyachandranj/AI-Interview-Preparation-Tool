@@ -79,6 +79,7 @@ const UserInput = ({ setResponse, isChatbotReady, setIsChatbotReady, response })
         } else if (data.status === "fail") {
           setPopupMessage("Sorry, you failed the current stage.");
           setPopupVisible(true);
+        
         }
         setTimeout(() => {
           setPopupVisible(false);
@@ -93,6 +94,26 @@ const UserInput = ({ setResponse, isChatbotReady, setIsChatbotReady, response })
     setPopupVisible(false);
     setPopupMessage(""); 
   };
+
+
+  useEffect(() => {
+    const checkForObjects = async () => {
+      try {
+        const response = await fetch('http://127.0.0.1:5000/object_detected');
+        const data = await response.json();
+        console.log("data",data);
+        if (data.detected) {
+          alert(`Alert! ${data.detected} detected!`);
+        }
+      } catch (error) {
+        console.error("Error fetching detected objects:", error);
+      }
+    };
+
+    const interval = setInterval(checkForObjects, 2000); // Check every 2 seconds
+    return () => clearInterval(interval);
+  }, []);
+
 
   useEffect(() => {
     if (!('webkitSpeechRecognition' in window)) {
@@ -186,7 +207,7 @@ const UserInput = ({ setResponse, isChatbotReady, setIsChatbotReady, response })
             return prevIndex + 1;
           } else {
             clearInterval(timer);
-            setChunks([]); // Clear chunks to hide the box after completion
+            setChunks([]); 
             return prevIndex;
           }
         });
@@ -212,30 +233,6 @@ const UserInput = ({ setResponse, isChatbotReady, setIsChatbotReady, response })
     const secs = seconds % 60;
     return `${mins}:${secs < 10 ? "0" : ""}${secs}`;
   };
-
-
-  const [alert, setAlert] = useState(null);
-
-  const fetchAlert = async () => {
-    const response = await fetch('http://localhost:8080/alerts');
-    if (response.ok) {
-      const data = await response.json();
-      if (data.alert) {
-        setAlert(data.alert);
-        alert("Malpractie Detected")
-      }
-    }
-  };
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      fetchAlert();
-    }, 1000); // Poll every second
-
-    return () => clearInterval(interval);
-  }, []);
-
-
 
 
   const generatePDF = () => {
@@ -319,16 +316,6 @@ const UserInput = ({ setResponse, isChatbotReady, setIsChatbotReady, response })
         <p>Completed Stages: {completedStages}</p>
       </div>
 
-      {!visible && (
-                <div>
-                <img
-                  src="http://127.0.0.1:8080/video_feed"  // Fetching video feed from Flask
-                  alt="Video Feed"
-                  style={{ width: '300px', maxWidth: '600px', marginLeft:"1600px",border: '1px solid black' }} // Adjust styles as necessary
-                />
-              </div>
-              )}
-
       {popupVisible && (
         <div className="popup" style={{ color: "black" }}>
           <div className="popup-content">
@@ -366,8 +353,6 @@ const UserInput = ({ setResponse, isChatbotReady, setIsChatbotReady, response })
                       height: "100px",
                       marginBottom: "50px",
                       marginLeft: "200px",
-                      marginTop:"100px"
-
                     }}
                   />
                 </div>
@@ -381,8 +366,6 @@ const UserInput = ({ setResponse, isChatbotReady, setIsChatbotReady, response })
                     fontSize: "30px",
                     marginLeft: "700px",
                     width: "900px",
-                    height:"80px",
-                    marginTop:"150px"
                   }}
                   placeholder="Type a message..."
                 />
@@ -392,23 +375,23 @@ const UserInput = ({ setResponse, isChatbotReady, setIsChatbotReady, response })
                 >
                   <i className="fas fa-cog"></i>
                 </div>
-                
-
               </form>
             </div>
           </div>
 
           {!visible && (
-            <div className="timerDisplay" style={{marginLeft:"300px", marginTop:"150px" }}>
+            <div className="timerDisplay" style={{marginLeft:"300px"}}>
               <p className="timerText">{formatTime(timer)}</p>
             </div>
           )}
 
-
-           
-              
-
-
+      <div className="videoFeed" style={{ position: "absolute", top: "1px", right: "10px", width: "300px", height: "200px", border: "2px solid #ccc" }}>
+          <img
+              src="http://127.0.0.1:5000/video_feed"
+              alt="Video Stream"
+              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+          />
+      </div>
 
           <div className="chatbotSettings" data-visible={visible}>
             <SettingsDisplay

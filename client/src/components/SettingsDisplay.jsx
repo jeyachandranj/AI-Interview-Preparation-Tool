@@ -11,7 +11,6 @@ const SettingsDisplay = ({ settings, setSettings, visible, setVisible }) => {
     const handleVisibilityChange = () => {
         if (document.hidden && isTabLockActive) {
             alert('You cannot switch tabs after saving your settings.');
-            // Increment the tab switch count
             setTabSwitchCount(prevCount => prevCount + 1);
         }
     };
