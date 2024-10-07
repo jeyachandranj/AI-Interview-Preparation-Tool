@@ -1,7 +1,8 @@
 import { Canvas } from "@react-three/fiber";
 import { Experience } from "../components/Experience";
 import UserInput from "../components/UserInput";
-import { useState } from "react";
+import { useState,useEffect } from "react";
+import Modal from "../components/Modal"; 
 import './Advance.css';
 import logo from '../assets/loding.gif';
 
@@ -15,9 +16,57 @@ function App() {
   });
 
   const [isChatbotReady, setIsChatbotReady] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [showFullscreenModal, setShowFullscreenModal] = useState(false);
+
+  const handleFullscreenChange = () => {
+    // Check if the document is in fullscreen mode
+    setIsFullscreen(!!document.fullscreenElement);
+  };
+
+  const requestFullscreen = () => {
+    const elem = document.documentElement; // Use the whole document
+    if (elem.requestFullscreen) {
+      elem.requestFullscreen();
+    } else if (elem.mozRequestFullScreen) { // Firefox
+      elem.mozRequestFullScreen();
+    } else if (elem.webkitRequestFullscreen) { // Chrome, Safari, and Opera
+      elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) { // IE/Edge
+      elem.msRequestFullscreen();
+    }
+    setShowFullscreenModal(false); 
+  };
+
+  useEffect(() => {
+    document.addEventListener("fullscreenchange", handleFullscreenChange);
+    document.addEventListener("mozfullscreenchange", handleFullscreenChange);
+    document.addEventListener("webkitfullscreenchange", handleFullscreenChange);
+    document.addEventListener("msfullscreenchange", handleFullscreenChange);
+
+    setIsFullscreen(!!document.fullscreenElement);
+
+    return () => {
+      document.removeEventListener("fullscreenchange", handleFullscreenChange);
+      document.removeEventListener("mozfullscreenchange", handleFullscreenChange);
+      document.removeEventListener("webkitfullscreenchange", handleFullscreenChange);
+      document.removeEventListener("msfullscreenchange", handleFullscreenChange);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!isFullscreen) {
+      setShowFullscreenModal(true);
+    }
+  }, [isFullscreen]);
 
   return (
     <div className="main-container" data-chatbot-ready={isChatbotReady}>
+      <Modal 
+        isOpen={showFullscreenModal} 
+        onClose={() => setShowFullscreenModal(false)} 
+        onConfirm={requestFullscreen} 
+      />
       {!isChatbotReady && (
         <div className="loading-overlay">
           <img src = {logo} alt="Loading..." className="loading-gif" />

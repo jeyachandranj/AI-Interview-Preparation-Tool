@@ -1,48 +1,58 @@
-import { motion } from 'framer-motion'; // Import framer-motion for animation
+import { motion } from 'framer-motion';
+import './Field6.css'; // Import the CSS file
 
 const Field6 = () => {
   return (
-    <motion.div className="mt-8 flex flex-col md:flex-row items-center justify-between bg-gray-100 p-10 md:p-20 rounded-lg shadow-lg"
-    initial={{ scale: 0.8, opacity: 0 }}  // Initial scale for pop-up effect
-      animate={{ scale: 1, opacity: 1 }}    // Animate to full size and opacity
-      transition={{ duration: 0.5 }}         // Control transition speed for pop-up
-      whileHover={{ backgroundColor: '#FFD150' }} // Animate background color to orange on hover
-      whileFocus={{ backgroundColor: '#FFD150' }}>
+    <motion.div 
+      id="field6-section" 
+      initial={{ scale: 0.9, opacity: 0 }} // Initial scale and opacity
+      animate={{ scale: 1, opacity: 1 }} // Animate to full size and opacity
+      transition={{ duration: 0.7, ease: 'easeInOut' }} // Transition timing
+      whileHover={{ scale: 1.02, boxShadow: '0 15px 30px rgba(0, 0, 0, 0.2)' }} // Scale and shadow on hover
+    >
       {/* Image Section */}
-      <motion.div 
-        className="w-full md:w-1/2 flex justify-center mt-8 md:mt-0" // Image goes above text in mobile view
-        initial={{ x: -100, opacity: 0 }} // Image comes from the left
-        animate={{ x: 0, opacity: 1 }} // Moves to its original position
-        transition={{ 
-          duration: 3,  // Smooth transition for position and opacity
-          delay: 6.5 // Slight delay for better animation sequence
-        }}
-      > 
-        <img 
-          src="./images/image4.png" // Replace with your image path
-          alt="Skill Analyzer Illustration" 
-          className="h-[400px] w-[400px] object-contain" // Adjusted size to fit better
-        />
-      </motion.div>
+      <motion.img 
+        src="./images/image4.png" // Specific image for Field6
+        alt="Skill Analyzer Illustration" 
+        className="image" 
+        initial={{ scale: 1, opacity: 0 }} // Start at normal size and invisible
+        animate={{ scale: 1, opacity: 1, rotate: [0, 2, -2, 0] }} // Slight rotation animation
+        transition={{ duration: 0.8, delay: 0.5 }} // Smooth transition with delay
+        whileHover={{ scale: 1.1 }} // Scale image up on hover
+      />
 
       {/* Text Section with Animation */}
       <motion.div
-        className="flex flex-col w-full md:w-1/2 items-center md:items-start text-center md:text-left mt-8 md:mt-0" // Text on the right for larger screens, centered for smaller screens
-        initial={{ x: 100, opacity: 0 }} // Text comes from the right
-        animate={{ x: 0, opacity: 1 }} // Moves to its original position
+        className="text-section" 
+        initial={{ x: -100, opacity: 0 }} // Text comes from the left
+        animate={{ x: 0, opacity: 1 }} // Moves to original position
         transition={{ 
-          duration: 3,  // Smooth transition for position and opacity
-          delay: 6.5 // Delay to match the image entry animation
+          duration: 0.8, 
+          delay: 0.3 // Smooth transition for appearance
         }}
+        whileHover={{ scale: 1.05, color: '#4F46E5' }} // Hover effect for text
       >
-        <h2 className="text-3xl font-bold text-blue-500">
+        <motion.h2
+          className="heading"
+          initial={{ y: -20, opacity: 0 }} // Starts above and invisible
+          animate={{ y: 0, opacity: 1 }} // Moves down and fades in
+          transition={{ duration: 0.8, delay: 1 }} // Delay for heading
+          whileHover={{ scale: 1.05, color: '#4F46E5' }} // Hover effect for heading
+        >
           Skill Analyzer
-        </h2>
-        <p className="mt-2 text-gray-700">
+        </motion.h2>
+        
+        <motion.p
+          className="paragraph"
+          initial={{ y: 50, opacity: 0 }} // Starts from below
+          animate={{ y: 0, opacity: 1 }} // Moves up and fades in
+          transition={{ duration: 0.8, delay: 0.5 }} // Delay for paragraph
+          whileHover={{ color: '#4F46E5', scale: 1.05 }} // Hover effect for paragraph
+        >
           The skill analyzer evaluates a candidate's resume and assesses their proficiency in relevant job skills. 
           By analyzing the applicant's experience and qualifications, it provides a detailed skill report, identifying strengths 
           and areas for improvement, ensuring alignment with job requirements.
-        </p>
+        </motion.p>
       </motion.div>
     </motion.div>
   );

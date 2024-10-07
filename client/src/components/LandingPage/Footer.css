@@ -1,0 +1,98 @@
+/* Footer container styles */
+.footer {
+  background-color: #7ebfdc; /* Ocean blue theme */
+  padding: 1rem 0; /* Smaller padding for a compact footer */
+}
+
+.footer-title {
+  font-size: 1rem; /* Reduced to text-lg */
+  text-align: center;
+  color: #28527a; /* Darker ocean blue */
+  font-weight: 500; /* Softer bold */
+  margin-bottom: 1rem; /* Space below the title */
+}
+
+.footer-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .footer-container {
+    flex-direction: row;
+    align-items: flex-start; /* Aligning content to the top for better spacing */
+  }
+}
+
+.company-info,
+.services,
+.technologies {
+  text-align: center;
+  margin-bottom: 1rem; /* Reduced margin for a more compact layout */
+}
+
+@media (min-width: 768px) {
+  .company-info,
+  .services,
+  .technologies {
+    text-align: left;
+    margin-bottom: 0;
+  }
+}
+
+/* Company info styles */
+.company-logo {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem; /* Added margin for spacing between logo and text */
+}
+
+.logo-img {
+  height: 30px; /* Smaller logo */
+  width: auto; /* Keeping the width auto to maintain aspect ratio */
+  border-radius: 50%;
+  margin-right: 0.5rem; /* Spacing between logo and text */
+}
+
+.company-address,
+.company-contact,
+.company-email {
+  margin-top: 0.25rem; /* Less spacing between lines */
+  color: #2c3e50; /* Subtle dark blue-gray */
+  padding: 0.5rem;
+}
+
+/* Service section styles */
+.section-title {
+  font-size: 1rem; /* Smaller title size */
+  font-weight: 500; /* Lighter bold for smaller text */
+  color: #28527a; /* Darker ocean blue */
+}
+
+.service-list,
+.tech-list {
+  margin-top: 0.25rem;
+  color: #2c3e50;
+}
+
+.service-list li,
+.tech-list li {
+  margin-bottom: 0.5rem; /* Reduced spacing between list items */
+}
+
+/* Connect Us section */
+.connect-us {
+  margin-top: 1rem; /* Reduced margin */
+  text-align: center;
+  color: #3c9ad6; /* Light ocean blue */
+  font-size: 0.875rem; /* Smaller font size */
+}
+
+.connect-us:hover,
+.connect-us:focus {
+  color: #2874a6; /* Darker ocean blue for hover/focus */
+}

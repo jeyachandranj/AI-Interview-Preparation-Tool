@@ -1,61 +1,58 @@
 import { motion } from 'framer-motion'; // Import framer-motion for animation
+import './Footer.css'; // Import the CSS file
 
 const Footer = () => {
   return (
-    <footer className="bg-purple-400 py-10">
+    <footer className="footer">
       {/* Main Container with Flex for Layout */}
-      <h2 className="text-2xl text-center text-orange-500 font-bold">CONNECT WITH US</h2>
-      <div className="container mx-auto flex flex-col md:flex-row justify-between items-center">
+      <h2 className="footer-title">CONNECT WITH US</h2>
+      <div className="footer-container">
       
         {/* Company Info Section */}
         <motion.div
-          className="text-center md:text-left mb-8 md:mb-0"
+          className="company-info"
           initial={{ x: -100, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 2, delay: 8.5 }} 
         >
-          <div className="flex items-center space-x-4">
-            <img src="./images/shine.png" alt="Logo" className="h-10 w-30 rounded-full" />
+          <div className="company-logo">
+            <img src="./images/shine.png" alt="Logo" className="logo-img" />
           </div>
-          <p className="mt-2 text-black-200 p-4">
+          <p className="company-address">
             3rd Floor, KJ Aditya Towers #L-14,<br />
             Vikram Sarabhai Instronic Estate Phase II,<br />
             Thiruvanmiyur, Chennai-600042
           </p>
-          <p className="mt-2 text-black-200 p-4">+91-9500037221</p>
-          <p className="mt-2 text-black-200 p-4">info@shinelogics.com</p>
+          <p className="company-contact">+91-9500037221</p>
+          <p className="company-email">info@shinelogics.com</p>
         </motion.div>
 
         {/* Service Section */}
         <motion.div
-          className="text-center md:text-left mb-8 md:mb-0"
+          className="services"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 3, delay: 8.5 }} 
         >
-          <h2 className="text-2xl font-bold text-orange-500">SERVICE</h2>
-          <ul className="text-black-200 mt-2">
+          <h2 className="section-title">SERVICE</h2>
+          <ul className="service-list">
             <li>Technology Consulting</li>
-            <br></br>
             <li>Software Development</li>
-            <br></br>
             <li>Product Development</li>
-            <br></br>
             <li>Software QA and Testing</li>
-            <br></br>
             <li>Customer Service</li>
           </ul>
         </motion.div>
 
         {/* Technology Section */}
         <motion.div
-          className="text-center md:text-left"
+          className="technologies"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 3, delay: 8.5 }} 
         >
-          <h2 className="text-2xl font-bold text-orange-500">Technologies</h2>
-          <ul className="text-black-200 mt-2">
+          <h2 className="section-title">Technologies</h2>
+          <ul className="tech-list">
             <li>Digital and IOT Innovation</li>
             <li>Data Engineering and Analytics</li>
             <li>Mobility</li>
@@ -65,7 +62,7 @@ const Footer = () => {
 
       {/* Connect with Us Section */}
       <motion.div
-        className="mt-10 text-center"
+        className="connect-us"
         initial={{ opacity: 0, color: '#FFA500' }} // Initial color
         animate={{ opacity: 1, color: '#FF6600' }} // Transition to new color
         transition={{ duration: 3, delay: 8.5 }} 
