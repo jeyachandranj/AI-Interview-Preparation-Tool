@@ -1,141 +1,162 @@
-/* src/pages/Reading.css */
-.reading-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background: url('../assets/backGround.svg') no-repeat center center/cover;
+/* General Styling for the Body */
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #f0f4f8;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+.timer {
+  position: absolute; /* Position the timer absolutely */
+  top: 20px; /* Distance from the top */
+  right: 20px; /* Distance from the right */
+  font-size: 1.5em; /* Font size for the timer */
+  background-color: rgba(255, 255, 255, 0.8); /* Light background for visibility */
+  padding: 10px; /* Padding around the timer */
+  border-radius: 5px; /* Rounded corners */
+  color: #333; /* Text color */
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+  z-index: 10; /* Ensure it appears above other content */
+}
+
+/* Main Loader Styling */
+.page-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  color: white;
+}
+
+.loading-img {
+  width: 120px;
+  height: 120px;
+  animation: rotate 1.2s infinite linear;
+  margin-bottom: 20px;
+}
+
+/* Rotate animation for loading */
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
   }
-  
-  .reading-container {
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 15px;
-    padding: 20px;
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
-    max-width: 800px;
-    width: 100%;
+  to {
+    transform: rotate(360deg);
   }
-  
-  .reading-header {
-    text-align: center;
-    font-size: 2em;
-    margin-bottom: 20px;
-    color: #333;
-  }
-  
-  .reading-paragraph {
-    font-size: 1.1em;
-    line-height: 1.6;
-    color: #555;
-  }
-  
-  .questions-container {
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 15px;
-    padding: 20px;
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
-    max-width: 800px;
-    width: 100%;
-  }
-  
-  .questions-header {
-    text-align: center;
-    font-size: 1.8em;
-    margin-bottom: 20px;
-    color: #333;
-  }
-  
-  .question-block {
-    margin-bottom: 20px;
-  }
-  
-  .question-text {
-    font-size: 1.2em;
-    color: #333;
-  }
-  
-  .options-container {
-    margin-top: 10px;
-    display: flex;
+}
+
+/* Reading Section Styling */
+.reading-background {
+  padding: 40px 20px;
+  background: url('../assets/backGround.svg') no-repeat center center/cover;
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.reading-container {
+  background: rgba(255, 255, 255, 0.97);
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.1);
+  max-width: 900px;
+  width: 100%;
+  animation: fadeIn 1.2s ease-in-out;
+  transition: all 0.3s;
+  margin-bottom: 30px;
+}
+
+.reading-heading {
+  font-size: 2.4em; /* Adjust as necessary */
+  color: rgba(255, 255, 255, 0.97);      /* Ensure text color is suitable */
+  text-align: center; /* Center the heading */
+  margin-bottom: 20px; /* Add space below the heading */
+}
+
+.content-container {
+  display: flex;
+  flex-direction: column; /* Change to column for heading above */
+  align-items: center; /* Center items */
+  width: 100%; /* Ensure full width */
+}
+
+.flex-container {
+  display: flex; /* Flex display for paragraph and questions */
+  gap: 30px; /* Space between the paragraph and questions */
+  justify-content: center; /* Center horizontally */
+  margin-top: 20px; /* Space above the flex items */
+  width:80%;
+}
+
+h2, h3, p {
+  font-family: 'Poppins', sans-serif;
+  color: #333;
+  text-align: center;
+}
+
+h2 {
+  font-size: 2.4em;
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+}
+
+p {
+  font-size: 1.2em;
+  line-height: 1.8;
+  color: #555;
+  padding: 0 20px;
+}
+
+/* Score Modal */
+.score-modal-content {
+  animation: fadeIn 0.5s ease-in-out;
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  max-width: 500px;
+  text-align: center;
+}
+
+.score-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .content-container {
     flex-direction: column;
-  }
-  
-  .option-label {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-    cursor: pointer;
-    font-size: 1em;
-    color: #555;
-  }
-  
-  .option-input {
-    margin-right: 10px;
-    cursor: pointer;
-  }
-  
-  .submit-button {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 1.2em;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .submit-button:hover {
-    background-color: #45a049;
-  }
-  
-  .score-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
     align-items: center;
   }
-  
-  .score-modal-content {
-    background-color: white;
+
+  .reading-container {
     padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-    max-width: 400px;
-    width: 100%;
+    max-width: 95%;
   }
-  
-  .close-button {
-    position: absolute;
-    top: 10px;
-    right: 20px;
-    font-size: 1.5em;
-    color: #aaa;
-    cursor: pointer;
-  }
-  
-  .page-center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-  
+}
+
+@media (max-width: 480px) {
   .loading-img {
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
   }
-  
-  .reading-background {
-    padding: 20px;
-    background: url('../assets/backGround.svg') no-repeat center center/cover;
-    min-height: 100vh;
+
+  .paragraph-container, .questions-container {
+    min-width: 100%;
   }
-  
+
+  p {
+    font-size: 1em;
+  }
+}

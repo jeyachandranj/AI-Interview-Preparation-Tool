@@ -7,10 +7,9 @@ import logo from '../assets/loding.gif';
 
 const Reading = () => {
   const [loading, setLoading] = useState(true);
-  const [showParagraph, setShowParagraph] = useState(false);
-  const [showQuestions, setShowQuestions] = useState(false);
   const [paragraph, setParagraph] = useState('');
   const [questions, setQuestions] = useState([]);
+  const [timeLeft, setTimeLeft] = useState(300); // 5 minutes in seconds
 
   useEffect(() => {
     const fetchContent = async () => {
@@ -22,12 +21,6 @@ const Reading = () => {
         setQuestions(data.questions);
 
         setLoading(false);
-        setShowParagraph(true);
-
-        setTimeout(() => {
-          setShowParagraph(false);
-          setShowQuestions(true);
-        }, 12000);
       } catch (error) {
         console.error("Error fetching data from backend", error);
       }
@@ -36,15 +29,39 @@ const Reading = () => {
     fetchContent();
   }, []);
 
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft(prevTime => {
+        if (prevTime <= 1) {
+          clearInterval(timer);
+          return 0; // Stop the timer when it reaches 0
+        }
+        return prevTime - 1; // Decrement the time left by 1 second
+      });
+    }, 1000);
+
+    return () => clearInterval(timer); // Cleanup interval on unmount
+  }, []);
+
+  const formatTimeLeft = (time) => {
+    const minutes = Math.floor(time / 60);
+    const seconds = time % 60;
+    return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`; // Format time as MM:SS
+  };
+
   return (
     <div className={loading ? 'page-center' : 'reading-background'}>
       {loading ? (
         <img src={logo} alt="Loading" className="loading-img" />
       ) : (
-        <>
-          {showParagraph && <Paragraph text={paragraph} />}
-          {showQuestions && <Questions questions={questions} />}
-        </>
+        <div className="content-container">
+          <h2 className="reading-heading">Reading Comprehension</h2>
+          <div className="timer">{formatTimeLeft(timeLeft)}</div> {/* Display timer */}
+          <div className="flex-container"> 
+            <Paragraph text={paragraph} />
+            <Questions questions={questions} />
+          </div>
+        </div>
       )}
     </div>
   );

@@ -38,7 +38,7 @@ class Chatbot {
         this.groq = new Groq({
             apiKey: "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",
         });
-
+        
         if (public_path) {
             public_path = 'public';
         }
@@ -175,8 +175,11 @@ class Chatbot {
                     role: "assistant",
                     content: aiResponse,
                 });
+                console.log("AI Response",aiResponse);
+
 
                 await this.exportChat();
+                console.log("AI Response",aiResponse);
 
                 return aiResponse;
 

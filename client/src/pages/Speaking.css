@@ -3,11 +3,13 @@
   align-items: flex-start;
   justify-content: center; /* Center items horizontally */
   padding: 20px; /* Overall padding */
+  
 }
 
 .recorder-container {
   flex: 1;
   margin-right: 70px;
+  
 }
 
 .score-container {
@@ -23,6 +25,7 @@
   padding: 20px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   margin: 40px 0; /* Margin for spacing */
+  
 }
 
 .input-group {

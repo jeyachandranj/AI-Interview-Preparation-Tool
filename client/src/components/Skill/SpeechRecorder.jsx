@@ -87,8 +87,8 @@ const SpeechRecorder = () => {
     alert("Feedback button clicked!");
   };
   return (
-    <div className="h-screen bg-purple-200 flex items-center justify-center p-6 font-bold" >
-      <div className="flex space-x-4" style={{width:"1500px",marginLeft:"300px"}}>
+    <div className="h-screen flex items-center justify-center p-6 font-bold" >
+      <div className="flex space-x-4" style={{width:"1500px",marginLeft:"450px"}}>
         {/* Speech Recorder Container */}
         <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full" >
           <div className="input-group">

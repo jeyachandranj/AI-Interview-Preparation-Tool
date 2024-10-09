@@ -1,0 +1,33 @@
+/* Container for the entire paragraph section with fixed size */
+.reading-body {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 800px; /* Set max-width for responsiveness */
+    width: 100%; /* Ensures the container uses 100% of its available width */
+    height: 600px; /* Fixed height to prevent resizing */
+    overflow-y: auto; /* Scrollable content if the content exceeds the container height */
+    margin: 0 auto; /* Center the container */
+}
+
+/* Paragraph styling */
+.reading-paragraph {
+    font-size: 1.2em; /* Font size similar to the questions */
+    color: #333; /* Dark color for readability */
+    line-height: 1.5; /* Improve readability */
+    margin: 0; /* Remove default margin */
+}
+
+/* Additional styles for responsiveness */
+@media (max-width: 768px) {
+    .reading-paragraph {
+        font-size: 1em; /* Smaller font size on mobile */
+    }
+}
+
+@media (max-width: 480px) {
+    .reading-paragraph {
+        font-size: 0.9em; /* Even smaller font size for smaller screens */
+    }
+}

@@ -1,153 +1,310 @@
-
-h1 {
-  margin-bottom: 40px;
+/* Global Styles */
+body {
+  background-color: #f4f4f4; /* Light background for better contrast */
+  font-family: 'Arial', sans-serif; /* Clean font style */
+  margin: 0;
+  padding: 20px;
 }
 
-h2 {
-  margin-bottom: 10px;
+/* Cord Container */
+.cord {
+  display: flex; /* Make the cord a flex container */
+  flex-direction: column; /* Stack elements vertically */
+  align-items: flex-start; /* Align items at the start vertically */
+  justify-content: flex-start; /* Align items at the start */
+  position: relative; /* Position for absolute positioning */
+  padding: -90; /* Space around the cord */
+  width: 650%; /* Full width */
+  max-width: 1130px; /* Maximum width for the cord */
+  margin: 0 auto; /* Center the cord */
+  border: 4px solid #d8d8d8; /* Optional: border for the cord */
+  border-radius: 8px; /* Optional: rounded corners */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Optional: shadow for depth */
+  margin: 10px 0 5px 50px; /* Add top and bottom margin, and 50px left margin */
+  height: 530px; /* Adjust height as needed */
+}
+.neon-heading {
+  font-size: 4rem; /* Increase size for more impact */
+  text-align: center;
+  color: #00ffcc; /* Neon color */
+  text-shadow: 
+      0 0 0px #181919, 
+      0 0 0px #00ffcc,
+      0 0 15px #141414, 
+      0 0 10px #4000ff, 
+      0 0 30px #ff00ff, 
+      0 0 30px #8032df;
+}
+
+/* Flex Container */
+.flex-container {
+  display: flex;
+  justify-content: center; /* Aligns items in the center */
+  align-items: flex-start; /* Aligns items at the top */
+  gap: 30px; /* Space between video and questions */
+  padding: 10px; /* Padding around the container */
 }
 
 .player-wrapper {
   position: relative;
-  padding-top: 56.25%;
+  width: 750px; /* Set desired width */
+  height: 500px; /* Set desired height */
+  margin: 0 auto; /* Center the player */
+  border-radius: 8px; /* Optional: Rounded corners */
+  overflow: hidden; /* Prevent overflow */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Optional: Shadow for depth */
 }
 
+/* React Player */
 .react-player {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 0; /* Align to top */
+  left: 0; /* Align to left */
+  width: 100%; /* Responsive to parent width */
+  height: 100%; /* Fill the player wrapper */
 }
 
-.score,h3{
-color: black;
+/* Animation for the heading */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px); /* Start slightly lower */
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0); /* End at original position */
+  }
 }
 
-
-button {
-padding: 1.3em 3em;
-font-size: 12px;
-text-transform: uppercase;
-letter-spacing: 2.5px;
-font-weight: 500;
-color: #d8d8d8;
-background-color: #fff;
-border: none;
-border-radius: 45px;
-box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-transition: all 0.3s ease 0s;
-cursor: pointer;
-outline: none;
-} 
-
-button:hover {
-background-color: #23c483;
-box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
-color: #fff;
-transform: translateY(-7px);
-} 
-
-button:active {
-transform: translateY(-1px);
-} 
-.center-container {
-display: flex;
-justify-content: center;
-align-items: center;
-height: 100vh;
-width: 100vw;
+/* Animation for the animated title */
+@keyframes letterJump {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px); /* Jump up */
+  }
+  100% {
+    transform: translateY(0); /* Back to original */
+  }
 }
 
+/* Heading Styles */
+h1 {
+  margin-bottom: 40px;
+  color: #333; /* Dark color for headers */
+  text-align: center;
+  animation: fadeInUp 1s ease forwards; /* Apply animation */
+}
+
+.animated-title {
+  display: inline-block; /* To position letters individually */
+}
+
+.letter {
+  display: inline-block; /* Position each letter inline */
+  animation: letterJump 0.5s ease forwards; /* Jump animation for each letter */
+}
+
+/* Question Page Styles */
 .question-page {
-width: 200%;
-max-width: 800px; /* Adjust based on your preference */
-padding: 20px;
-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-background-color: #fff; /* Optional: to give it a background */
-border-radius: 8px;
-}
-
-.close-button {
-  position: absolute;
-  top: 10px;  /* Adjust this value as per your requirement */
-  right: 10px;  /* Adjust this value as per your requirement */
-  background-color: red;  /* Button color */
-  color: white;  /* Text color */
-  border: none;
-  padding: 5px 10px;
-  cursor: pointer;
-  font-size: 16px;
-  border-radius: 50%;  /* Optional, for rounded button */
-  z-index: 1000;  /* Ensure it's on top of other elements */
-}
-.score-modal-content {
-  position: relative;
-  padding: 20px;
   width: 200%;
-  /* other styling */
+  
+  max-width: 400px; /* Control the width of the question card */
+  padding: 0px;
+  background-color: #ffffff; /* White background for contrast */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Shadow for depth */
 }
+
+/* Question Container */
+.questions-container {
+  margin-top: -90px; /* Space above questions */
+  padding: 0px; /* Padding around questions */
+  border: 0px solid #ddd; /* Border for questions */
+  border-radius: 0px; /* Rounded corners */
+  background-color: #f9f9f9; /* Light background for questions */
+}
+
+/* Question Text */
+.question-text {
+  font-size: 16px; /* Font size for questions */
+  margin-bottom: 0px; /* Space below question */
+}
+
+/* Options Container */
+.options-container {
+  display: flex; /* Flex for options */
+  flex-direction: column; /* Stack options vertically */
+}
+
+/* Option Label */
+.option-label {
+  margin-bottom: 8px; /* Space below each option */
+}
+
+/* Option Input */
+.option-input {
+  margin-right: 10px; /* Space to the right of radio */
+}
+
+/* Navigation Buttons */
 .navigation-buttons {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 20px; 
-  }
-  
-  .nav-button1,
-  .nav-button2 {
-  padding: 1.3em 3em;
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 2.5px;
-  width: auto;
-  font-weight: 500;
-  color: #d8d8d8;
-  background-color: #da5e5e;
-  border: none;
-  border-radius: 45px;
-  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease 0s;
-  cursor: pointer;
-  outline: none;
-  }
-/* Styles for the modal */
+  display: flex; /* Flex for buttons */
+  justify-content: space-between; /* Space between buttons */
+  margin-top: 20px; /* Space above buttons */
+}
+
+/* Button Styles */
+.nav-button {
+  background-color: #007bff; /* Primary button color */
+  color: white; /* Button text color */
+  border: none; /* Remove border */
+  border-radius: 6px; /* Rounded corners */
+  padding: 15px 30px; /* Increased padding for larger buttons */
+  font-size: 18px; /* Increased font size */
+  cursor: pointer; /* Pointer on hover */
+  transition: background-color 0.3s, transform 0.2s; /* Smooth color and scale transition */
+  margin: 0 10px; /* Space between buttons */
+}
+
+/* Button Hover Effects */
+.nav-button:hover {
+  background-color: #0056b3; /* Darker shade on hover */
+  transform: scale(1.05); /* Slightly enlarge button on hover */
+}
+
+/* Modal Styles */
 .score-modal {
-  width: 80vw; /* 80% of viewport width */
-  height: 60vh; /* 60% of viewport height */
-  display: flex; /* Flexbox to center content */
-  flex-direction: column; /* Ensures items stack vertically */
-  justify-content: center; /* Vertically center content */
-  align-items: center; /* Horizontally center content */
-  background-color: white; /* Background for modal */
-  box-sizing: border-box; /* Include padding in width and height */
-  padding: 20px; /* Padding inside the modal */
-  border: 1px solid black; /* Optional: border for clarity */
-  position: fixed; /* Fix the modal relative to the viewport */
-  top: 50%; /* Move the modal to the center of the screen */
-  left: 50%;
-  transform: translate(-50%, -50%); /* Center it perfectly */
-  z-index: 1000; /* Ensure modal stays above other elements */
+  position: fixed; /* Fixed position */
+  top: 0; /* Top alignment */
+  left: 0; /* Left alignment */
+  width: 100vw; /* Full viewport width */
+  height: 100vh; /* Full viewport height */
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  display: flex; /* Flex to center content */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  z-index: 1000; /* On top of other content */
 }
 
-/* Styles for the modal content */
+/* Modal Content */
 .score-modal-content {
-  text-align: center; /* Center text inside the modal */
+  background-color: #ffffff; /* White background */
+  padding: 20px; /* Padding for content */
+  border-radius: 8px; /* Rounded corners */
+  text-align: center; /* Centered text */
+  position: relative; /* Position for close button */
 }
 
-/* Close button styling */
+/* Close Button */
 .close-button {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  cursor: pointer;
-  font-size: 18px;
-  background-color: transparent;
-  border: none;
-  color: black;
+  position: fixed; /* Position absolutely */
+  top: 10px; /* Top space */
+  right: 10px; /* Right space */
+  cursor: pointer; /* Pointer on hover */
+  font-size: 18px; /* Font size */
 }
+
+/* Score Image */
 .score-image {
-  width: 150px; /* Adjust the width of the image */
+  max-width: 250%; /* Restrict the image to its container width */
   height: auto; /* Maintain aspect ratio */
-  margin-bottom: 20px; /* Space between the image and the score text */
-  border-radius: 8px; /* Optional: rounded corners */
+  display: block; /* Make it a block element */
+  margin: 50px auto; /* Center it horizontally */
 }
-  
+
+/* Score Text */
+.score {
+  margin-top: 10px; /* Space above score text */
+  font-size: 20px; /* Font size for score */
+  color: #333; /* Color for score text */
+}
+/* Question Page Styles */
+.question-page {
+  width: 200%; /* Or any desired width */
+  max-width: 550px; /* Control the width of the question card */
+  padding: 10px; /* Increased padding for more space */
+  background-color: #ffffff; /* White background for contrast */
+  border-radius: 0px; /* Rounded corners */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+  display: flex; /* Use flexbox to align children */
+  flex-direction: column; /* Stack children vertically */
+  gap: -80px; /* Space between children */
+  height: -90px; /* Allow dynamic height based on content */
+}
+
+/* Adjustments for the questions-container to ensure it has space and is centered */
+.questions-container {
+  width: 300px; /* Set a fixed width */
+  height: auto; /* Adjust height automatically based on content */
+  margin: 0px auto; /* Center the container with vertical space above and below */
+  padding: 0px; /* Add padding inside the container */
+  border: 0px solid #ddd; /* Border for questions (optional) */
+  border-radius: 0px; /* Rounded corners (optional) */
+  background-color: #f9f9f9; /* Light background for questions */
+  display: flex; /* Use flexbox for layout */
+  flex-direction: column; /* Arrange children vertically */
+  align-items: center; /* Center items horizontally */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: Add a slight shadow for depth */
+}
+
+/* Title Heading */
+.title-heading {
+  font-size: 5rem; /* Increase the size of the title */
+  text-align: center;
+  color: #4a4a4a;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+/* Jumping Animation */
+@keyframes jump {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px); /* Adjust the value for more or less jump */
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* Letter Style */
+.letter {
+  display: inline-block; /* Allows for individual letter styling */
+  transition: transform 0.6s; /* Smooth transition for flipping */
+  cursor: pointer; /* Change cursor to indicate clickable text */
+}
+
+/* Active flip effect */
+.flipped {
+  animation: flip 0.6s ease-in-out; /* Apply flipping effect */
+}
+
+/* Hover Jump Effect */
+.letter:hover {
+  animation: jump 0.3s ease-in-out; /* Jump effect on hover */
+}
+/* CSS Styles for Horizontal Star Arrangement */
+.stars-display-horizontal {
+  display: flex;
+  flex-direction: row; /* Align stars in a horizontal row */
+  justify-content: center; /* Center stars horizontally */
+}
+
+.star-icon {
+  width: 60px; /* Adjust the size of each star */
+  height: 60px; /* Maintain aspect ratio */
+  margin: 2px; /* Add horizontal spacing between stars */
+}
+
+.score-modal-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.close-button {
+  cursor: pointer;
+  align-self: flex-end;
+}

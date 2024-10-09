@@ -1,0 +1,234 @@
+/*Questions.css*/
+/* Container for the entire question section with fixed size */
+.questions-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 800px; /* Set max-width for responsiveness */
+    width: 100%; /* Ensures the container uses 100% of its available width */
+    height: 600px; /* Fixed height to prevent resizing */
+    overflow-y: auto; /* Scrollable content if the content exceeds the container height */
+    margin: 0 auto;
+}
+/* Question number navigation buttons */
+.question-number-btn {
+    background-color: #f0f0f0;
+    border: none;
+    padding: 10px;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+
+/* Question answered */
+.question-number-btn.answered {
+    background-color: #28a745; /* Green for answered */
+    color: white;
+}
+
+/* Question visited but not answered */
+.question-number-btn.visited {
+    background-color: #ffc107; /* Yellow for visited but unanswered */
+    color: white;
+}
+
+/* Question not visited */
+.question-number-btn.not-visited {
+    background-color: #f0f0f0; /* Gray for not visited */
+    color: black;
+}
+
+/* Question currently active */
+.question-number-btn.active {
+    background-color: #6a11cb; /* Purple for active question */
+    color: white;
+}
+
+/* Header for the questions section */
+.questions-header {
+    font-size: 2em;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Question number navigation buttons */
+.question-navigation {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.question-number-btn {
+    background-color: #f0f0f0;
+    border: none;
+    padding: 10px;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+
+.question-number-btn.active {
+    background-color: #6a11cb;
+    color: white;
+}
+
+/* Individual question block with fixed height */
+.question-block {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    background-color: #fafafa;
+    max-height: 500px; /* Ensures the content stays within limits */
+    
+}
+
+.question-text {
+    font-size: 1.2em;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.options-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Styling for each option label */
+.option-label {
+    font-size: 1.1em;
+    cursor: pointer;
+}
+
+.option-input {
+    margin-right: 10px;
+}
+
+/* Navigation buttons for previous/next question */
+.question-navigation-buttons {
+    display: flex;
+    justify-content:space-between;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.nav-button {
+    background-color: #6a11cb;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    flex: 1; /* Allow buttons to take equal space */
+    max-width: 120px; /* Define a max width if necessary */
+    margin: 0 10px; /* Provide spacing between buttons */
+    text-align: center; /* Center the text */
+}
+
+.nav-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* Submit button */
+.submit-button {
+    background-color: #6a11cb;
+    color: white;
+    border: none;
+    padding: 15px;
+    width: 100%;
+    border-radius: 5px;
+    font-size: 1.2em;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+/* Modal for displaying score */
+.score-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.score-modal-content {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    max-width: 400px;
+}
+
+.score-modal h3 {
+    font-size: 1.8em;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Close button for the modal */
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.5em;
+    cursor: pointer;
+    color: #555;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .question-number-btn {
+        width: 30px;
+        height: 30px;
+        font-size: 0.9em;
+    }
+
+    .nav-button {
+        padding: 8px 15px;
+        font-size: 0.9em; /* Smaller font size on mobile */
+    }
+
+    .submit-button {
+        font-size: 1em;
+        padding: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .question-number-btn {
+        width: 25px;
+        height: 25px;
+        font-size: 0.8em;
+    }
+
+    .submit-button {
+        font-size: 0.9em;
+    }
+
+    .nav-button {
+        padding: 6px 10px; /* Adjust padding for smaller screens */
+        font-size: 0.8em;
+    }
+}

@@ -1,0 +1,74 @@
+.question-palette {
+    display: flex; /* Use flexbox for layout */
+    flex-direction: column; /* Stack children vertically */
+    align-items: center; /* Center align items horizontally */
+    padding: 5px; /* Reduced padding around the container */
+    background-color: #ffffff; /* Background color of the palette */
+    border-radius: 10px; /* Slightly smaller rounded corners */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+    margin: 5px; /* Reduced margin around the palette */
+    transition: transform 0.3s; /* Smooth transform transition */
+}
+
+.question-palette:hover {
+    transform: scale(1.02); /* Slightly scale the entire palette on hover */
+}
+
+.palette-heading {
+    margin: 0; /* Remove default margin */
+    font-weight: bold; /* Make the heading bold */
+    font-size: 22px; /* Smaller font size for the heading */
+    text-align: center; /* Center the heading */
+    color: #3f51b5; /* Heading color */
+    margin-bottom: 5px; /* Reduced space below the heading */
+}
+
+.palette-grid {
+    display: flex; /* Use flexbox for layout */
+    flex-wrap: wrap; /* Allow buttons to wrap */
+    justify-content: center; /* Center align buttons */
+    gap: 1px; /* Reduced space between buttons */
+    margin-top: 10px; /* Space above the grid */
+}
+
+.question-button {
+    padding: 1px; /* Smaller button padding */
+    background: linear-gradient(145deg, #e0e0e0, #ffffff); /* Gradient background */
+    border: none; /* Remove border */
+    border-radius: 50%; /* Keep buttons round */
+    cursor: pointer; /* Pointer on hover */
+    display: flex; /* Use flexbox to center the content */
+    justify-content: center; /* Center the content horizontally */
+    align-items: center; /* Center the content vertically */
+    width: 50px; /* Reduced width */
+    height: 50px; /* Reduced height */
+    font-size: 16px; /* Smaller font size for question number */
+    font-weight: bold; /* Bold font for question number */
+    color: #3f51b5; /* Color for question number */
+    transition: all 0.3s ease; /* Smooth transition for all properties */
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1); /* Initial shadow for depth */
+}
+
+/* Active button color */
+.question-button.active {
+    background: linear-gradient(145deg, #3f51b5, #1f3a7e); /* Active button color with gradient */
+    color: white; /* Text color for active button */
+}
+
+/* Green color for answered questions */
+.question-button.answered {
+    background: linear-gradient(145deg, #4caf50, #388e3c); /* Green gradient for answered questions */
+    color: white; /* White text */
+}
+
+/* Hover effects */
+.question-button:hover {
+    box-shadow: 0 0 12px 4px rgba(63, 81, 181, 0.5); /* Glowing shadow effect */
+    transform: translateY(-4px) rotate(5deg); /* Slightly lift and rotate the button */
+}
+
+/* Button click effect */
+.question-button:active {
+    transform: translateY(1px); /* Slightly move down on click */
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.3); /* Reduced shadow on click */
+}

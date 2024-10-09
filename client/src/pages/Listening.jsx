@@ -1,10 +1,11 @@
-
 import React, { useState, useEffect } from 'react';
 import ReactPlayer from 'react-player';
+import Confetti from 'react-confetti';
 import videos from '../components/Skill/videos.json';
+import QuestionPalette from '../components/Skill/QuestionPalette';
 import './Listening.css';
-import Confetti from 'react-confetti'; 
-import img from "../assets/tropy.jpg"
+// import starImage from '../assets/star.gif'; // Ensure you have this image in the specified directory
+// import emptyStarImage from '../assets/empty-star.jpeg'; // Optional: Include an empty star image for unachieved scores
 
 function Listening() {
   const [randomVideo, setRandomVideo] = useState(null);
@@ -14,14 +15,42 @@ function Listening() {
   const [selectedAnswers, setSelectedAnswers] = useState([]);
   const [score, setScore] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0); // New state for current question
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [flippedLetters, setFlippedLetters] = useState(new Array(20).fill(false));
 
-  const handleChange = (e, index) => {
-    const newAnswers = [...selectedAnswers];
-    newAnswers[index] = e.target.value;
-    setSelectedAnswers(newAnswers);
+  // Fetch random video and generate questions
+  useEffect(() => {
+    const selectRandomVideo = () => {
+      const randomIndex = Math.floor(Math.random() * videos.length);
+      setRandomVideo(videos[randomIndex]);
+    };
+    selectRandomVideo();
+  }, []);
+
+  useEffect(() => {
+    if (randomVideo) {
+      fetchParagraphAndGenerateQuestions(randomVideo.subtitle);
+    }
+  }, [randomVideo]);
+
+  const fetchParagraphAndGenerateQuestions = async (subtitle) => {
+    try {
+      const response = await fetch('http://localhost:3000/listen-generate-content', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ paragraph: subtitle }),
+      });
+      if (!response.ok) throw new Error('Failed to fetch questions');
+      const data = await response.json();
+      setParagraph(data.paragraph);
+      setQuestions(data.questions.questions);
+      setShowQuestionPage(true);
+    } catch (error) {
+      console.error('Error fetching questions:', error);
+    }
   };
 
+  // Score calculation on submit
   const handleSubmit = () => {
     let newScore = 0;
     questions.forEach((question, index) => {
@@ -33,72 +62,58 @@ function Listening() {
     setIsModalOpen(true);
   };
 
-  const closeModal = () => {
-    setIsModalOpen(false);
+  const closeModal = () => setIsModalOpen(false);
+
+  // Star rendering function
+  const renderStars = () => {
+    const stars = [];
+    for (let i = 0; i < questions.length; i++) {
+      stars.push(
+        // <img
+        //   key={i}
+        //   src={i < score ? starImage : emptyStarImage} // Show full star for correct answers
+        //   alt="star"
+        //   className="star-icon"
+        // />
+      );
+    }
+    return stars;
   };
 
-  const fetchParagraphAndGenerateQuestions = async (subtitle) => {
-    try {
-      const response = await fetch('http://localhost:3000/listen-generate-content', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          paragraph: subtitle,
-        }),
-      });
+  // Navigation logic
+  const handleNextQuestion = () => currentQuestionIndex < questions.length - 1 && setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
+  const handlePreviousQuestion = () => currentQuestionIndex > 0 && setCurrentQuestionIndex((prevIndex) => prevIndex - 1);
 
-      if (!response.ok) {
-        throw new Error('Failed to fetch questions');
-      }
-
-      const data = await response.json();
-      setParagraph(data.paragraph);
-      setQuestions(data.questions.questions);
-      setShowQuestionPage(true);  // Move this here to ensure it's called after questions are set
-    } catch (error) {
-      console.error('Error fetching questions:', error);
-    }
+  // Handle letter flipping animation
+  const handleLetterClick = (index) => {
+    const newFlippedLetters = [...flippedLetters];
+    newFlippedLetters[index] = !newFlippedLetters[index];
+    setFlippedLetters(newFlippedLetters);
   };
 
-  useEffect(() => {
-    const selectRandomVideo = () => {
-      const randomIndex = Math.floor(Math.random() * videos.length);
-      setRandomVideo(videos[randomIndex]);
-    };
+  const title = "Listening Comprehension";
 
-    selectRandomVideo();
-  }, []);
-
-  useEffect(() => {
-    if (randomVideo) {
-      const timer = setTimeout(() => {
-        fetchParagraphAndGenerateQuestions(randomVideo.subtitle);
-      }, 30000);
-
-      return () => clearTimeout(timer);
-    }
-  }, [randomVideo]);
-
-  const handleNextQuestion = () => {
-    if (currentQuestionIndex < questions.length - 1) {
-      setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
-    }
-  };
-
-  const handlePreviousQuestion = () => {
-    if (currentQuestionIndex > 0) {
-      setCurrentQuestionIndex((prevIndex) => prevIndex - 1);
-    }
-  };
   return (
     <div className="App">
-      {!showQuestionPage ? (
-        <>
-          <h1>Listening Comprehension</h1>
-          {randomVideo && (
-            <div className="player-wrapper" style={{ marginBottom: '20px' }}>
+      {/* Animated Title */}
+      <h1 className="title-heading">
+        {title.split("").map((letter, index) => (
+          <span
+            key={index}
+            className={`letter ${flippedLetters[index] ? 'flipped' : ''}`}
+            onClick={() => handleLetterClick(index)}
+            style={{ animationDelay: `${index * 0.1}s` }} // Optional delay for the animation
+          >
+            {letter}
+          </span>
+        ))}
+      </h1>
+
+      {/* Video and Question Page */}
+      {randomVideo && (
+        <div className="cord" style={{height:"700px"}}>
+          <div className="flex-container">
+            <div className="player-wrapper">
               <ReactPlayer
                 className="react-player"
                 url={randomVideo.url}
@@ -109,64 +124,78 @@ function Listening() {
                   },
                 }}
                 width="100%"
-                height="700px"
+                height="100%"
               />
             </div>
-          )}
-        </>
-      ) : (
-        <div className="center-container">
-        <div className="question-page">
-          <div className="questions-container">
-            <h2 className="questions-header">Question {currentQuestionIndex + 1} of {questions.length}</h2>
-            {questions && questions.length > 0 && (
-              <div className="question-block">
-                <p className="question-text"><strong>Q{currentQuestionIndex + 1}:</strong> {questions[currentQuestionIndex].question}</p>
-                <div className="options-container">
-                  {Object.keys(questions[currentQuestionIndex].options).map((optionKey, i) => (
-                    <label key={i} className="option-label">
-                      <input
-                        type="radio"
-                        name={`question-${currentQuestionIndex}`}
-                        value={optionKey}
-                        onChange={(e) => handleChange(e, currentQuestionIndex)}
-                        checked={selectedAnswers[currentQuestionIndex] === optionKey}
-                        className="option-input"
-                      />
-                      {questions[currentQuestionIndex].options[optionKey]}
-                    </label>
-                  ))}
+
+            {/* Questions Display */}
+            {showQuestionPage && (
+              <div className="question-page" style={{height:"650px",width:"800px"}}>
+                <QuestionPalette
+                  totalQuestions={questions.length}
+                  currentQuestion={currentQuestionIndex}
+                  onSelectQuestion={(index) => setCurrentQuestionIndex(index)}
+                  selectedAnswers={selectedAnswers}
+                />
+                <div className="questions-container">
+                  <div className="question-navigation">
+                    <h2 className="questions-header">Question {currentQuestionIndex + 1} of {questions.length}</h2>
+                  </div>
+                  {questions && questions.length > 0 && (
+                    <div className="question-block">
+                      <p className="question-text"><strong>Q{currentQuestionIndex + 1}:</strong> {questions[currentQuestionIndex].question}</p>
+                      <div className="options-container">
+                        {Object.keys(questions[currentQuestionIndex].options).map((optionKey, i) => (
+                          <label key={i} className="option-label">
+                            <input
+                              type="radio"
+                              name={`question-${currentQuestionIndex}`}
+                              value={optionKey}
+                              onChange={(e) => {
+                                const newAnswers = [...selectedAnswers];
+                                newAnswers[currentQuestionIndex] = e.target.value;
+                                setSelectedAnswers(newAnswers);
+                              }}
+                              checked={selectedAnswers[currentQuestionIndex] === optionKey}
+                              className="option-input"
+                            />
+                            {questions[currentQuestionIndex].options[optionKey]}
+                          </label>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
+
+                {/* Navigation Buttons */}
+                <div className="navigation-buttons">
+                  <button onClick={handlePreviousQuestion} disabled={currentQuestionIndex === 0} className="nav-button">Prev</button>
+                  {currentQuestionIndex < questions.length - 1 ? (
+                    <button onClick={handleNextQuestion} className="nav-button">Next</button>
+                  ) : (
+                    <button onClick={handleSubmit} className="nav-button">Submit</button>
+                  )}
+                </div>
+
+                {/* Score Modal with Stars */}
+                {isModalOpen && (
+                  <div className="score-modal">
+                    <Confetti />
+                    <div className="score-modal-content">
+                      <div className="close-button" onClick={closeModal}>X</div>
+                      <div className="stars-display-horizontal">
+  {renderStars()}
+</div>
+
+                      <h3 className="score">Your Score: {score} / {questions.length}</h3>
+                    </div>
+                  </div>
+                )}
               </div>
-            )}
-
-            <div className="navigation-buttons">
-              <button onClick={handlePreviousQuestion} disabled={currentQuestionIndex === 0} className="nav-button1">
-                Prev
-              </button>
-              <button onClick={handleNextQuestion} disabled={currentQuestionIndex === questions.length - 1} className="nav-button2">
-                Next
-              </button>
-            </div>
-
-            {currentQuestionIndex === questions.length - 1 && (
-              <button onClick={handleSubmit} className="submit-button">Submit</button>
-            )}
-
-            {isModalOpen && (
-      <div className="score-modal"> 
-         <Confetti />
-      
-      <div className="score-modal-content">
-      <div className="close-button" onClick={closeModal}>X</div>
-      <img src={img} alt="Score Image" className="score-image" />
-      <h3 className="score">Your Score: {score} / {questions.length}</h3>
-      </div>
-      </div>
             )}
           </div>
         </div>
-      </div>)}
+      )}
     </div>
   );
 }
