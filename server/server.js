@@ -53,19 +53,20 @@ io.on("connection", (socket) => {
             if (!data || typeof data.question !== "string") {
                 throw new TypeError("The 'question' property must be a string.");
             }
-            let response;
-            console.log("Processing question:", data.question);
-            let isAIReplaied = true;
-            while(isAIReplaied)
-            {
-              try{
-               response = await chatbot.chat(data.question,data.duration,data.interviewStartTime,data.name);
-               isAIReplaied = false;
-              }
-              catch{
-                console.log("Ai replaied error");
-              }
-            }
+            // let response;
+            // console.log("Processing question:", data.question);
+            // let isAIReplaied = true;
+            // while(isAIReplaied)
+            // {
+            //   try{
+            //    response = await chatbot.chat(data.question,data.duration,data.interviewStartTime,data.name);
+            //    isAIReplaied = false;
+            //   }
+            //   catch{
+            //     console.log("Ai replaied error");
+            //   }
+            // }
+            const response = await chatbot.chat(data.question,data.duration,data.interviewStartTime,data.name);
             const speechData = await chatbot.textToSpeech(response);
     
             console.log(`RESPONSE (${socket.id}): ${response}`);

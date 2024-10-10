@@ -101,16 +101,16 @@ const UserInput = ({ setResponse, isChatbotReady, setIsChatbotReady, response })
       try {
         const response = await fetch('http://127.0.0.1:5000/object_detected');
         const data = await response.json();
-        console.log("data",data);
-        if (data.detected) {
-          alert(`Alert! ${data.detected} detected!`);
+        console.log("data",data.confidence);
+        if (data) {
+          alert(`Alert! ${data.class_name} detected!`);
         }
       } catch (error) {
         console.error("Error fetching detected objects:", error);
       }
     };
 
-    const interval = setInterval(checkForObjects, 2000); // Check every 2 seconds
+    const interval = setInterval(checkForObjects, 20000); // Check every 2 seconds
     return () => clearInterval(interval);
   }, []);
 
@@ -385,7 +385,7 @@ const UserInput = ({ setResponse, isChatbotReady, setIsChatbotReady, response })
             </div>
           )}
 
-      <div className="videoFeed" style={{ position: "absolute", top: "1px", right: "10px", width: "300px", height: "200px", border: "2px solid #ccc" }}>
+      <div className="videoFeed" style={{ position: "fixed", top: "0", right: "0px", width: "300px", height: "200px", border: "2px solid #ccc"  }}>
           <img
               src="http://127.0.0.1:5000/video_feed"
               alt="Video Stream"

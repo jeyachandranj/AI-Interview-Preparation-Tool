@@ -11,8 +11,8 @@ function Modal({ isOpen, onClose, onConfirm }) {
         <h2>Fullscreen Required</h2>
         <p>This application works best in fullscreen mode. Please switch to fullscreen for the best experience.</p>
         <div className="modal-buttons">
-          <button onClick={onConfirm}>Go Fullscreen</button>
-          <button onClick={onClose}>Cancel</button>
+          <button onClick={onConfirm} style={{width:"200px"}}>Go Fullscreen</button>
+          {/* <button onClick={onClose}>Cancel</button> */}
         </div>
       </div>
     </div>

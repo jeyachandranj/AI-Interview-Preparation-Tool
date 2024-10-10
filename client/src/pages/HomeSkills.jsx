@@ -5,7 +5,7 @@ import i2 from '../assets/write.png';
 import i3 from '../assets/listen.png';
 import i4 from '../assets/speak.png';
 import { motion } from 'framer-motion'; // Framer Motion for animations
-import TestCoordinator from '../components/TextCoordinator.jsx'; 
+import TestCoordinator from '../components/TextCoordinator.jsx';
 
 function HomeSkills() {
   const [isStarted, setIsStarted] = useState(false);
@@ -24,7 +24,10 @@ function HomeSkills() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-between min-h-screen  p-6">
+    <div className="relative flex flex-col items-center justify-between  p-6">
+      {/* Responsive Background */}
+      <div className="absolute inset-0 -z-10 h-full w-full bg-white [background:radial-gradient(125%_125%_at_50%_10%,#fff_40%,#63e_100%)]"></div>
+
       {isStarted ? (
         <TestCoordinator selectedSkills={{
           listen: true, // Automatically selected for the test
@@ -38,7 +41,7 @@ function HomeSkills() {
 
           {/* Display the skill cards */}
           <motion.div
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6 text-white"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6 text-black"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8 }}
@@ -46,7 +49,7 @@ function HomeSkills() {
             {Object.keys(skillDescriptions).map((skill, index) => (
               <motion.div
                 key={skill}
-                className=" text-white rounded-lg shadow-lg p-4 transition-shadow cursor-pointer hover:shadow-xl"
+                className=" text-black rounded-lg shadow-lg p-4 transition-shadow cursor-pointer hover:shadow-xl"
                 initial={{ opacity: 0, x: index % 2 === 0 ? -200 : 200 }} // Left or right entrance
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: index % 2 === 0 ? -200 : 200 }} // Fade out
@@ -57,7 +60,7 @@ function HomeSkills() {
                   name={skill.charAt(0).toUpperCase() + skill.slice(1)}
                   description={skillDescriptions[skill].description}
                 />
-                <p className="text-white mt-2">{skillDescriptions[skill].details}</p>
+                <p className="text-black mt-2">{skillDescriptions[skill].details}</p>
               </motion.div>
             ))}
           </motion.div>
@@ -65,10 +68,10 @@ function HomeSkills() {
           {/* Rules and Regulations */}
           <div className="mb-6 w-full">
             <h2 className="text-xl font-semibold text-purple-800 mb-2">Rules and Regulations</h2>
-            <p className="text-white mb-2">
+            <p className="text-black mb-2">
               Please read and adhere to the following rules:
             </p>
-            <ul className="list-disc pl-5 mb-4 text-white">
+            <ul className="list-disc pl-5 mb-4 text-black">
               <li>Each test lasts for 5 minutes.</li>
               <li>Ensure a quiet environment while taking the tests.</li>
               <li>Do not use external resources during the tests.</li>
@@ -80,13 +83,11 @@ function HomeSkills() {
       {/* Start Test Button */}
       {!isStarted && (
         <button
-        onClick={handleStartTest}
-        className="bg-purple-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-purple-700 mb-6 shadow-purple-custom hover:shadow-xl transition-shadow w-[200px] h-[50px]"
-      >
-        Start Test
-      </button>
-      
-      
+          onClick={handleStartTest}
+          className="bg-purple-600 text-black font-bold py-2 px-4 rounded-lg hover:bg-purple-700 mb-6 shadow-purple-custom hover:shadow-xl transition-shadow w-[200px] h-[50px]"
+        >
+          Start Test
+        </button>
       )}
     </div>
   );

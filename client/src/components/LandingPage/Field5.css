@@ -1,72 +1,66 @@
 #field5-section {
-  margin-top: 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   background-color: #ffffff; /* Pure white background */
-  padding: 2.5rem;
-  border-radius: 0.5rem;
-  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  border: 1px solid #e2e8f0;
-}
-
-#field5-section:hover {
-  transform: scale(1.02);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+  padding: 2.5rem; /* Consistent padding */
+  border-radius: 0.5rem; /* Rounded corners */
+  border: none; /* Remove border for a seamless look */
+  box-shadow: none; /* Remove shadow for a flat appearance */
+  min-height: 400px; /* Set a minimum height */
 }
 
 #field5-section .text-section {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  text-align: left;
-  color: #8a8a8a;
-  transition: color 0.3s ease;
+  width: 100%; /* Full width for text section */
+  text-align: left; /* Left align text */
+  color: #8a8a8a; /* Initial text color */
+  transition: color 0.3s ease; /* Smooth transition for text color */
 }
 
 @media (min-width: 768px) {
   #field5-section {
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: row; /* Change direction to row for larger screens */
+    justify-content: space-between; /* Space between text and image */
   }
 
   #field5-section .text-section {
-    width: 60%;
+    width: 60%; /* Text takes up 60% of the container */
   }
 
   #field5-section .image {
-    width: 35%;
-    margin-left: 2rem;
+    width: 55%; /* Image takes up 35% of the container */
+    margin-left: 0rem; /* Space between text and image */
   }
 }
 
 #field5-section .heading {
-  font-size: 2rem;
-  font-weight: 700;
-  color: #1E3A8A;
-  margin-bottom: 1rem;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  font-size: 2.5rem; /* Increased font size */
+  font-weight: 700; /* Bold weight */
+  color: #1E3A8A; /* Primary color */
+  margin-bottom: 1rem; /* Space below the heading */
+  text-shadow: none; /* Remove text shadow for a cleaner look */
 }
 
 #field5-section .paragraph {
-  margin-top: 0.5rem;
-  color: #374151;
-  font-size: 1.1rem;
-  line-height: 1.6;
+  margin-top: 0.5rem; /* Space above paragraphs */
+  color: #374151; /* Paragraph color */
+  font-size: 1.3rem; /* Increased font size */
+  line-height: 1.6; /* Improved line height for readability */
 }
 
 #field5-section .image {
-  height: auto;
-  width: 100%;
-  max-width: 20rem;
-  object-fit: cover;
-  border-radius: 0.25rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
+  height: auto; /* Remove fixed height */
+  width: 100%; /* Ensure the image does not exceed container width */
+  max-width: 30rem; /* Set a maximum width */
+  object-fit: cover; /* Cover the entire area */
+  border-radius: 0.25rem; /* Rounded corners for the image */
+  transition: none; /* Remove scaling transition for seamless integration */
 }
 
+/* Optional: Remove hover effect from the image */
 #field5-section .image:hover {
-  transform: scale(1.05);
+  transform: none; /* Remove scale effect on hover */
 }

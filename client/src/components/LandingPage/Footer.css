@@ -1,15 +1,17 @@
 /* Footer container styles */
 .footer {
-  background-color: #7ebfdc; /* Ocean blue theme */
-  padding: 1rem 0; /* Smaller padding for a compact footer */
+  background-color: #1C2833; /* Dark navy blue */
+  padding: 3rem 0; /* Ample padding for breathing room */
+  border-top: 1px solid #424949; /* Subtle gray border */
 }
 
 .footer-title {
-  font-size: 1rem; /* Reduced to text-lg */
+  font-size: 1.75rem; /* Large title */
   text-align: center;
-  color: #28527a; /* Darker ocean blue */
-  font-weight: 500; /* Softer bold */
-  margin-bottom: 1rem; /* Space below the title */
+  color: #F0F3F4; /* Light gray text for contrast */
+  font-family: 'Montserrat', sans-serif; /* Modern, elegant font */
+  font-weight: 600;
+  margin-bottom: 2.5rem; /* Spacing under title */
 }
 
 .footer-container {
@@ -17,29 +19,28 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  max-width: 960px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
 @media (min-width: 768px) {
   .footer-container {
     flex-direction: row;
-    align-items: flex-start; /* Aligning content to the top for better spacing */
+    align-items: flex-start;
+    text-align: left; /* Aligns content to the left */
   }
 }
 
 .company-info,
 .services,
 .technologies {
-  text-align: center;
-  margin-bottom: 1rem; /* Reduced margin for a more compact layout */
+  margin-bottom: 2rem;
 }
 
 @media (min-width: 768px) {
   .company-info,
   .services,
   .technologies {
-    text-align: left;
     margin-bottom: 0;
   }
 }
@@ -48,51 +49,57 @@
 .company-logo {
   display: flex;
   align-items: center;
-  margin-bottom: 1rem; /* Added margin for spacing between logo and text */
+  margin-bottom: 1.5rem;
 }
 
 .logo-img {
-  height: 30px; /* Smaller logo */
-  width: auto; /* Keeping the width auto to maintain aspect ratio */
-  border-radius: 50%;
-  margin-right: 0.5rem; /* Spacing between logo and text */
+  height: 45px;
+  width: auto;
+  margin-right: 1rem; /* Extra space between logo and text */
 }
 
 .company-address,
 .company-contact,
 .company-email {
-  margin-top: 0.25rem; /* Less spacing between lines */
-  color: #2c3e50; /* Subtle dark blue-gray */
-  padding: 0.5rem;
+  margin-top: 0.75rem;
+  color: #D5D8DC; /* Light gray for better contrast */
+  font-family: 'Roboto', sans-serif; /* Clean, professional font */
+  font-size: 0.9rem; /* Slightly larger for readability */
 }
 
-/* Service section styles */
+/* Service and Technology section styles */
 .section-title {
-  font-size: 1rem; /* Smaller title size */
-  font-weight: 500; /* Lighter bold for smaller text */
-  color: #28527a; /* Darker ocean blue */
+  font-size: 1.25rem;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  color: #F0F3F4; /* Light gray */
+  margin-bottom: 1rem;
 }
 
 .service-list,
 .tech-list {
-  margin-top: 0.25rem;
-  color: #2c3e50;
+  margin-top: 0.5rem;
+  color: #D5D8DC; /* Light gray for text */
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.875rem; /* Standard, easy-to-read font size */
 }
 
 .service-list li,
 .tech-list li {
-  margin-bottom: 0.5rem; /* Reduced spacing between list items */
+  margin-bottom: 0.75rem;
+  line-height: 1.6; /* Improve readability with line spacing */
 }
 
 /* Connect Us section */
 .connect-us {
-  margin-top: 1rem; /* Reduced margin */
+  margin-top: 2.5rem; /* Larger margin for emphasis */
   text-align: center;
-  color: #3c9ad6; /* Light ocean blue */
-  font-size: 0.875rem; /* Smaller font size */
+  color: #B08D57; /* Gold accent color */
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1rem;
 }
 
 .connect-us:hover,
 .connect-us:focus {
-  color: #2874a6; /* Darker ocean blue for hover/focus */
+  color: #D5D8DC; /* Light gray hover effect */
 }

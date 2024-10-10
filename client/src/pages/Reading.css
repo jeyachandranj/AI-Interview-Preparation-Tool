@@ -1,12 +1,5 @@
 /* General Styling for the Body */
-body {
-  font-family: 'Poppins', sans-serif;
-  background-color: #f0f4f8;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  overflow-x: hidden;
-}
+
 .timer {
   position: absolute; /* Position the timer absolutely */
   top: 20px; /* Distance from the top */
@@ -49,12 +42,15 @@ body {
 
 /* Reading Section Styling */
 .reading-background {
-  padding: 40px 20px;
-  background: url('../assets/backGround.svg') no-repeat center center/cover;
+  
+  /* padding: 40px -100px; */
+  padding-right: 450px;
   min-height: 100vh;
   display: flex;
   align-items: flex-start;
   justify-content: center;
+  width:1500px;
+  margin-right: 700px;
 }
 
 .reading-container {
@@ -80,15 +76,17 @@ body {
   display: flex;
   flex-direction: column; /* Change to column for heading above */
   align-items: center; /* Center items */
-  width: 100%; /* Ensure full width */
+  width: 80%; /* Ensure full width */
+  justify-content: center;
 }
 
 .flex-container {
   display: flex; /* Flex display for paragraph and questions */
   gap: 30px; /* Space between the paragraph and questions */
   justify-content: center; /* Center horizontally */
-  margin-top: 20px; /* Space above the flex items */
-  width:80%;
+  margin-top: 10px; /* Space above the flex items */
+  width:100%;
+  margin-right: 1000px;
 }
 
 h2, h3, p {

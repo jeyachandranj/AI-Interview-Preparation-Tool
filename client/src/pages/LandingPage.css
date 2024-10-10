@@ -1,0 +1,125 @@
+/* CSS for the overall container and navigation */
+body {
+    margin: 0; /* Remove default margin to eliminate space around the body */
+    padding: 0; /* Remove default padding to eliminate space around the body */
+}
+
+.container { /* Main container styles */
+    width: 100%; /* Full width to take up the whole page */
+    background-color: #ffffff; /* Background color to match the rest of the page */
+    padding: 0; /* Remove padding for a seamless look */
+}
+
+/* Navbar styles */
+.navbar {
+    display: flex; /* Use flexbox to align items */
+    align-items: center; /* Center items vertically */
+    justify-content: space-between; /* Space items evenly */
+    padding: 16px; /* Add some padding to the navbar */
+    background-color: #ffffff; /* Background color for the navbar */
+}
+
+.navbar-links {
+    display: flex;
+    gap: 32px; /* Space between navbar links */
+}
+
+.nav-link {
+    color: #001F3F; /* Dark blue color */
+    font-weight: bold;
+    padding: 8px 16px;
+    border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s; /* Removed transform transition to avoid zoom */
+    font-family: 'Consolas', monospace; /* Set font to Consolas */
+}
+
+.nav-link:hover {
+    background-color: #ffffff; /* Change to white on hover */
+    /* Removed transform scale effect to prevent zoom */
+}
+
+.hamburger-button {
+    display: none; /* Hidden by default, visible on small screens */
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.hamburger-icon {
+    width: 24px;
+    height: 24px;
+    stroke: #ffffff;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 8px;
+    width: 92%;
+    background-color: #ffffff; /* Background color to match the page */
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow for dropdown */
+}
+
+.dropdown-menu.open {
+    display: block;
+}
+
+.dropdown-link {
+    display: block;
+    color: black;
+    font-weight: bold;
+    padding: 8px 16px;
+    border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s; /* Removed transform transition to avoid zoom */
+    font-family: 'Consolas', monospace; /* Set font to Consolas */
+}
+
+.dropdown-link:hover {
+    background-color: #fb923c; /* Change background color on hover */
+    color: white; /* Change text color on hover */
+    /* Removed transform scale effect to prevent zoom */
+}
+
+.logo {
+    height: 40px; /* Maintain height */
+    width: 120px; /* Maintain width */
+    border-radius: 50%; /* Keep rounded corners */
+    margin-top: 4px; /* Adjust the value as needed */
+    margin-left: 16px; /* Add margin to the left to move it away from the edge */
+}
+
+/* Media query for mobile view */
+@media (max-width: 768px) {
+    .navbar-links {
+        display: none; /* Hide links on small screens */
+    }
+
+    .hamburger-button {
+        display: flex;
+        align-items: center;
+    }
+
+    .dropdown-menu {
+        display: block; /* Display dropdown menu on mobile */
+    }
+}
+
+.account-icon {
+    font-size: 24px;
+    color: #f97316; /* Equivalent to text-orange-500 */
+}
+/* Scroll-based effects using CSS */
+
+.scroll-effect {
+    opacity: 0; /* Initially hidden */
+    transform: translateY(50px); /* Initially move the element down */
+    transition: opacity 0.6s ease, transform 0.6s ease; /* Smooth transition */
+}
+
+.scroll-effect.visible {
+    opacity: 1; /* Fully visible */
+    transform: translateY(0); /* Move the element back to its original position */
+}

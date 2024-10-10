@@ -68,7 +68,7 @@ const Questions = ({ questions }) => {
   };
 
   return (
-    <div className="questions-container">
+    <div className="questions-container" style={{height:"600px",width:"1200px"}}>
       <h2 className="questions-header">Questions</h2>
 
       {/* Question Number Navigation */}

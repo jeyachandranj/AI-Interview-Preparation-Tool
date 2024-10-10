@@ -52,12 +52,11 @@ const Reading = () => {
   return (
     <div className={loading ? 'page-center' : 'reading-background'}>
       {loading ? (
-        <img src={logo} alt="Loading" className="loading-img" />
+        <img src={logo} alt="Loading" className="loading-img" style={{marginLeft:"400px"}} />
       ) : (
         <div className="content-container">
-          <h2 className="reading-heading">Reading Comprehension</h2>
           <div className="timer">{formatTimeLeft(timeLeft)}</div> {/* Display timer */}
-          <div className="flex-container"> 
+          <div className="flex-container" style={{marginRight:"50px",width:"1200px"}}> 
             <Paragraph text={paragraph} />
             <Questions questions={questions} />
           </div>

@@ -1,5 +1,4 @@
 #field7-section {
-  margin-top: 2rem;
   display: flex;
   flex-direction: column; /* Default to column for smaller screens */
   align-items: center;
@@ -7,14 +6,7 @@
   background-color: #ffffff; /* Pure white background */
   padding: 2.5rem; /* Consistent padding */
   border-radius: 0.5rem; /* Rounded corners */
-  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1); /* Softer shadow */
-  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transition effects */
-  border: 1px solid #e2e8f0; /* Border for definition */
-}
-
-#field7-section:hover {
-  transform: scale(1.02); /* Slight scale on hover */
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2); /* Darker shadow on hover */
+  margin: 100px 0; /* Add space at the top and bottom */
 }
 
 #field7-section .text-section {
@@ -56,13 +48,13 @@
 #field7-section .paragraph {
   margin-top: 0.5rem; /* Space above paragraphs */
   color: #374151; /* Paragraph color */
-  font-size: 1.1rem; /* Increased font size */
+  font-size: 1.4rem; /* Increased font size */
   line-height: 1.6; /* Improved line height for readability */
 }
 
 #field7-section .image {
   width: 100%; /* Ensure the image fills the available space */
-  max-width: 20rem; /* Restrict the maximum width */
+  max-width: 30rem; /* Restrict the maximum width */
   max-height: 20rem; /* Restrict the maximum height */
   object-fit: contain; /* Maintain aspect ratio and fit the image */
   border-radius: 0.25rem; /* Rounded corners for the image */

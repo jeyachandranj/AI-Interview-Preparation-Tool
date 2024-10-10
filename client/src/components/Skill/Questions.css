@@ -5,7 +5,7 @@
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    max-width: 800px; /* Set max-width for responsiveness */
+    /* max-width: 800px; */
     width: 100%; /* Ensures the container uses 100% of its available width */
     height: 600px; /* Fixed height to prevent resizing */
     overflow-y: auto; /* Scrollable content if the content exceeds the container height */
@@ -93,6 +93,7 @@
     margin-top: 20px;
     padding: 20px;
     border: 1px solid #e0e0e0;
+    /* width: 180px; */
     border-radius: 10px;
     background-color: #fafafa;
     max-height: 500px; /* Ensures the content stays within limits */

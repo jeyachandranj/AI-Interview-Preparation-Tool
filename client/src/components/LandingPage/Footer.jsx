@@ -1,10 +1,9 @@
-import { motion } from 'framer-motion'; // Import framer-motion for animation
-import './Footer.css'; // Import the CSS file
+import { motion } from 'framer-motion';
+import './Footer.css';
 
 const Footer = () => {
   return (
     <footer className="footer">
-      {/* Main Container with Flex for Layout */}
       <h2 className="footer-title">CONNECT WITH US</h2>
       <div className="footer-container">
       
@@ -34,7 +33,7 @@ const Footer = () => {
           animate={{ opacity: 1 }}
           transition={{ duration: 3, delay: 8.5 }} 
         >
-          <h2 className="section-title">SERVICE</h2>
+          <h2 className="section-title">SERVICES</h2>
           <ul className="service-list">
             <li>Technology Consulting</li>
             <li>Software Development</li>
@@ -51,7 +50,7 @@ const Footer = () => {
           animate={{ opacity: 1 }}
           transition={{ duration: 3, delay: 8.5 }} 
         >
-          <h2 className="section-title">Technologies</h2>
+          <h2 className="section-title">TECHNOLOGIES</h2>
           <ul className="tech-list">
             <li>Digital and IOT Innovation</li>
             <li>Data Engineering and Analytics</li>
@@ -63,8 +62,8 @@ const Footer = () => {
       {/* Connect with Us Section */}
       <motion.div
         className="connect-us"
-        initial={{ opacity: 0, color: '#FFA500' }} // Initial color
-        animate={{ opacity: 1, color: '#FF6600' }} // Transition to new color
+        initial={{ opacity: 0, color: '#B08D57' }} // Initial color (gold)
+        animate={{ opacity: 1, color: '#8A6E45' }} // Transition to a darker gold tone
         transition={{ duration: 3, delay: 8.5 }} 
       >
         {/* You can add more content here if needed */}

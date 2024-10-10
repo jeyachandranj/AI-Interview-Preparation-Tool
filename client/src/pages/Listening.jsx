@@ -91,7 +91,7 @@ function Listening() {
     setFlippedLetters(newFlippedLetters);
   };
 
-  const title = "Listening Comprehension";
+  const title = "";
 
   return (
     <div className="App">
@@ -111,9 +111,9 @@ function Listening() {
 
       {/* Video and Question Page */}
       {randomVideo && (
-        <div className="cord" style={{height:"700px"}}>
-          <div className="flex-container">
-            <div className="player-wrapper">
+        <div className="cord" style={{height:"700px",marginLeft:'-90px'}}>
+          <div className="flex-container" >
+            <div className="player-wrapper" style={{height:"600px"}}>
               <ReactPlayer
                 className="react-player"
                 url={randomVideo.url}
@@ -130,14 +130,14 @@ function Listening() {
 
             {/* Questions Display */}
             {showQuestionPage && (
-              <div className="question-page" style={{height:"650px",width:"800px"}}>
+              <div className="question-page" style={{height:"600px",width:"800px"}}>
                 <QuestionPalette
                   totalQuestions={questions.length}
                   currentQuestion={currentQuestionIndex}
                   onSelectQuestion={(index) => setCurrentQuestionIndex(index)}
                   selectedAnswers={selectedAnswers}
                 />
-                <div className="questions-container">
+                <div className="questions-container" style={{height:"600px",width:" 500px"}}>
                   <div className="question-navigation">
                     <h2 className="questions-header">Question {currentQuestionIndex + 1} of {questions.length}</h2>
                   </div>

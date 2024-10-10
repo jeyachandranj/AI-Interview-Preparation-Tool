@@ -1,43 +1,44 @@
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import './Field3.css'; // Import the CSS file
-import yourimg from "../../../images/image1.jpg" ;
+import yourimg from "../../../images/image1.jpg";
 
 const Field3 = () => {
+  // Use scroll to track the scroll progress
+  const { scrollYProgress } = useScroll();
+
+  // Animate text and image positions and opacity based on scroll
+  const textY = useTransform(scrollYProgress, [0, 1], [-100, 0]); // Move text from 100px above to its normal position
+  const imageY = useTransform(scrollYProgress, [0, 1], [-150, 0]); // Move image from 150px above to its normal position
+  const opacityText = useTransform(scrollYProgress, [0, 0.5], [0, 1]); // Text opacity from 0 to 1
+  const opacityImage = useTransform(scrollYProgress, [0, 0.5], [0, 1]); // Image opacity from 0 to 1
+
   return (
     <motion.div 
       id="field3-section" 
       initial={{ scale: 0.9, opacity: 0 }} // Initial scale and opacity
       animate={{ scale: 1, opacity: 1 }} // Animate to full size and opacity
       transition={{ duration: 0.7, ease: 'easeInOut' }} // Transition timing
-      whileHover={{ scale: 1.02, boxShadow: '0 15px 30px rgba(0, 0, 0, 0.2)' }} // Scale and shadow on hover
     >
-      {/* Text Section with Animation */}
+      {/* Text Section with Scroll Animation */}
       <motion.div
         className="text-section" 
-        initial={{ x: -100, opacity: 0 }} // Text comes from the left
-        animate={{ x: 0, opacity: 1 }} // Moves to original position
-        transition={{ 
-          duration: 0.8, 
-          delay: 0.3 // Smooth transition for appearance
-        }}
-        whileHover={{ scale: 1.05, color: '#4F46E5' }} // Hover effect for text
+        style={{ y: textY, opacity: opacityText }} // Apply scroll-based Y translation and opacity
+        transition={{ duration: 0.8 }} // Smooth transition for appearance
       >
         <motion.h2
           className="heading"
-          initial={{ y: -20, opacity: 0 }} // Starts above and invisible
-          animate={{ y: 0, opacity: 1 }} // Moves down and fades in
-          transition={{ duration: 0.8, delay: 1 }} // Delay for heading
-          whileHover={{ scale: 1.05, color: '#4F46E5' }} // Hover effect for heading
+          initial={{ y: -100, opacity: 0 }} // Starts above and invisible
+          animate={{ y: 0, opacity: 1 }} // Moves to its normal position and becomes visible
+          transition={{ duration: 0.8, delay: 0.5 }} // Delay for heading
         >
           AI Resume Builder
         </motion.h2>
         
         <motion.p
           className="paragraph"
-          initial={{ y: 50, opacity: 0 }} // Starts from below
-          animate={{ y: 0, opacity: 1 }} // Moves up and fades in
-          transition={{ duration: 0.8, delay: 0.5 }} // Delay for paragraph
-          whileHover={{ color: '#4F46E5', scale: 1.05 }} // Hover effect for paragraph
+          initial={{ y: -50, opacity: 0 }} // Starts from above and invisible
+          animate={{ y: 0, opacity: 1 }} // Moves to its normal position and becomes visible
+          transition={{ duration: 1.8, delay: 0.7 }} // Delay for paragraph
         >
           The AI-powered resume builder helps create tailored, professional resumes by automatically formatting and optimizing content based on job roles. 
           It analyzes key skills and experience to highlight strengths, ensuring your resume stands out to recruiters and applicant tracking systems (ATS).
@@ -47,14 +48,13 @@ const Field3 = () => {
         </motion.p>
       </motion.div>
 
-      {/* Image Section */}
+      {/* Image Section with Scroll Animation */}
       <motion.img 
-        src= {yourimg}// Single image
+        src={yourimg} // Single image
         alt="Illustration" 
         className="image" 
-        initial={{ scale: 1, opacity: 0 }} // Start at normal size and invisible
-        animate={{ scale: 1, opacity: 1, rotate: [0, 2, -2, 0] }} // Slight rotation animation
-        transition={{ duration: 0.8, delay: 0.5 }} // Smooth transition with delay
+        style={{ y: imageY, opacity: opacityImage }} // Apply scroll-based Y translation and opacity
+        transition={{ duration: 0.8 }} // Smooth transition with delay
         whileHover={{ scale: 1.1 }} // Scale image up on hover
       />
     </motion.div>

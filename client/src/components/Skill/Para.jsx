@@ -3,8 +3,8 @@ import '../Skill/Para.css';
 
 const Para = ({ text, onNext }) => {
   return (
-    <div className="reading-body">
-      <div className="reading-container">
+    <div className="reading-body" style={{width:"1000px"}} >
+      <div className="reading-container ">
         <p className="reading-paragraph">{text}</p>
       </div>
     </div>

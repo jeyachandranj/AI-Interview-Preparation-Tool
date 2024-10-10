@@ -17,8 +17,8 @@ const chatSchema = new mongoose.Schema({
     name: { type: String, required: true },
     user_msg: { type: String, required: true },
     ai: { type: String, required: true },
-    score: { type: Number, required: true },
-    section: { type: String, required: true },
+    score: { type: Number },
+    section: { type: String },
     duration: { type: Number, required: true },
 });
 
@@ -36,9 +36,9 @@ class Chatbot {
         dotenv.config();
         this.socket_id = null;
         this.groq = new Groq({
-            apiKey: "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",
+            apiKey: "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",
         });
-        
+
         if (public_path) {
             public_path = 'public';
         }
@@ -131,6 +131,46 @@ class Chatbot {
         });
     }
 
+
+    async determineScoreAndSection(previousUserMsg, previousAiResponse) {  
+        const classificationPrompt = `  
+            Based on the previous user message: "${previousUserMsg}",  
+            and the previous AI response: "${previousAiResponse}",  
+            please provide:  
+            1. A score from 1 to 10 indicating the quality or relevance.  
+            2. A section classification based on the content:   
+               'general', 'skills', 'project', or 'experience'.  
+               
+            Format your response as JSON:  
+            {  
+                "score": <integer>,  
+                "section": "general | skills | project | experience"  
+            }`;  
+    
+        const scoreCompletion = await this.groq.chat.completions.create({  
+            messages: [{ role: "system", content: classificationPrompt }],  
+            model: "llama3-8b-8192",  
+        });  
+    
+        if (scoreCompletion.choices && scoreCompletion.choices[0] && scoreCompletion.choices[0].message) {  
+            const scoreResponse = scoreCompletion.choices[0].message.content;   
+            let parsedScoreResponse;  
+    
+            try {  
+                parsedScoreResponse = JSON.parse(scoreResponse);  
+            } catch (error) {  
+                console.error("Failed to parse score response:", scoreResponse);  
+                throw new Error("Invalid score response format");  
+            }  
+    
+            return parsedScoreResponse;  
+        } else {  
+            console.log("Invalid score completion format:", scoreCompletion);  
+            throw new Error("Invalid score completion format");  
+        }  
+    }  
+    
+
     
 
     async chat(userInput, duration, interviewStartTime, name) {
@@ -139,35 +179,58 @@ class Chatbot {
             content: userInput,
         });        
 
+
+        const lastMessage = await Chat.findOne().sort({ createdAt: -1 }).lean();  
+
+        let previousUserMsg = '';  
+        let previousAiResponse = '';  
+
+        if (lastMessage) {  
+            previousUserMsg = lastMessage.user_msg;  
+            previousAiResponse = lastMessage.ai;
+        }  
+
+        // const completion = await this.groq.chat.completions.create({
+        //     messages: [
+        //         ...this.messages,
+        //         {
+        //             role: "system",
+        //             content: `Must give the response is bellow Json format as shown below please all responce is json format and also {} inside broket key and value bellow format :
+        //                 {
+        //                     "aiResponse": "<your response>",
+        //                     "score": <integer between 0 and 10>,
+        //                     "section": "<section type>"
+        //                 }.
+        //                 Ensure the JSON is valid and complete, without any additional text. section types include 'skill', 'project', 'experience', 'company', or 'general'. `
+        //         }
+        //     ],
+        //     model: "llama3-8b-8192",
+        // });
         const completion = await this.groq.chat.completions.create({
-            messages: [
-                ...this.messages,
-                {
-                    role: "system",
-                    content: `Must give the response is bellow Json format as shown below please all responce is json format and also {} inside broket key and value bellow format :
-                        {
-                            "aiResponse": "<your response>",
-                            "score": <integer between 0 and 10>,
-                            "section": "<section type>"
-                        }.
-                        Ensure the JSON is valid and complete, without any additional text. section types include 'skill', 'project', 'experience', 'company', or 'general'. `
-                }
-            ],
+            messages: this.messages,
             model: "llama3-8b-8192",
         });
 
+        const { score, section } = await this.determineScoreAndSection(previousUserMsg, previousAiResponse);  
+
         if (completion.choices && completion.choices[0] && completion.choices[0].message) {
-            const aiMessage = completion.choices[0].message.content.trim();
-                const parsedResponse = JSON.parse(aiMessage);
-                console.log("response",parsedResponse)
-                const { aiResponse, score, section } = parsedResponse;
+            const aiResponse = completion.choices[0].message.content;
+
+
+
+                // const aiMessage = completion.choices[0].message.content.trim();
+                // const parsedResponse = JSON.parse(aiMessage);
+                // console.log("response",parsedResponse)
+                // const { aiResponse, score, section } = parsedResponse;
+                const Username="Jeyachandran J";
+
                 await Chat.create({
-                    name: name,
+                    name: Username,
                     user_msg: userInput,
                     ai: aiResponse,
-                    score, // The score returned by the AI
-                    section, // The session type returned by the AI
-                    duration,
+                    score,
+                    section,
+                    duration
                 });
 
                 // Store the assistant's response for the conversation history
@@ -175,11 +238,8 @@ class Chatbot {
                     role: "assistant",
                     content: aiResponse,
                 });
-                console.log("AI Response",aiResponse);
-
 
                 await this.exportChat();
-                console.log("AI Response",aiResponse);
 
                 return aiResponse;
 
@@ -190,6 +250,10 @@ class Chatbot {
         }
 
     }
+
+    
+
+    
 
     async evaluateInterviewProgress(interviewDuration, name) {
         let scoreAvg = 0;
