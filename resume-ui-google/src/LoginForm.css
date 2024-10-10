@@ -1,0 +1,190 @@
+.wrapper{
+    width: 420px;
+    background: transparent;
+    border: 2px solid rgba(255,255,255,.2);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 10px rgba(0,0,0,.1);
+    color: #fff;
+    border-radius: 10px;
+    padding: 30px 40px;
+}
+
+.error-message{
+    padding-top: 15px;
+}
+
+.wrapper h1{
+    font-size: 36px;
+    text-align: center;
+    font-family: "Updock", italic;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.wrapper .input-box{
+    position: relative;
+    width: 100%;
+    height: 50px;
+    background: transparent;
+    backdrop-filter: blur(10px);
+    margin: 30px 0;
+}
+.input-box select {
+    width: 100%;
+    height: 100%;
+    background: #00416A; /* Set a visible background color */
+    border: none;
+    outline: none;
+    border: 2px solid rgba(255,255,255,.2);
+    border-radius: 40px;
+    font-size: 16px;
+    color: #fff; /* Ensure the text is visible */
+    padding: 10px 45px 10px 20px; /* Adjust padding to vertically center the text */
+    appearance: none; /* Hide the default arrow */
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0id2hpdGUiPjxwYXRoIGQ9Ik0xMiAxNkw0LjI5IDguMjkgNS43MSA2Ljg3TDEyIDEzLjE1bDYuMjktNi4yOGwxLjQyIDEuNDFMMTIgMTZ6Ii8+PC9zdmc+');
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 12px;
+}
+
+.input-box select:hover {
+    background: #1d1160; 
+}
+
+.input-box select:focus {
+    border: 2px solid #66FF00; /* Highlight border on focus */
+}
+
+
+.input-box input{
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    border: 2px solid rgba(255,255,255,.2);
+    border-radius: 40px;
+    font-size: 16px;
+    color: #fff;
+    padding: 20px 45px 20px 20px;
+}
+
+.input-box input::placeholder{
+    color: #fff;
+}
+
+.input-box .icon{
+    position: absolute;
+    right: 20px;
+    top: 50%;
+}
+
+.wrapper .remember-forgot{
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    font-size: 14.5px;
+    margin: -15px 0 15px;
+}
+
+.remember-forgot .forgot-password-btn{
+    text-decoration: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14.5px;
+    color: #66FF00;
+}
+
+
+
+.remember-forgot .register-link{
+    text-decoration: none;
+    
+    color: #ff4d4d; /* Changed link color */
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14.5px;
+}
+
+.remember-forgot .register-link:hover{
+    text-decoration: underline;
+}
+
+.wrapper button {
+    width: 100%;
+    height: 50px;
+    background: #00416A;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    font-size: 16px;
+    color: #fff;
+    font-weight: 700;
+    margin-top: 10px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+.wrapper button:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 300%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.15);
+    transition: all 0.4s ease;
+}
+
+.wrapper button:hover:before {
+    left: -50%;
+}
+
+.wrapper button:hover {
+    background: #1d1160;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+}
+
+.wrapper button:active {
+    background: linear-gradient(45deg, #e55656, #fc8e8e);
+    box-shadow: none;
+    transform: translateY(0);
+}
+
+
+
+.wrapper button.disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+
+
+/* Improved error and success message styling */
+.error-message {
+    color: #ff4d4d;
+    font-size: 14px;
+    margin-top: -10px;
+    margin-bottom: 10px;
+    text-align: center;
+    font-weight: bold;
+}
+
+
+.register-link{
+    padding-top: 20px;
+    padding-left: 20px;
+}
+.success-message {
+    color: #28a745;
+    font-size: 14px;
+    margin-top: -10px;
+    margin-bottom: 10px;
+    text-align: center;
+    font-weight: bold;
+}
