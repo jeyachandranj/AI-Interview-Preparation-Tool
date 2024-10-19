@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { auth, firestore } from './Backend/firebase/firebase';
+import { auth, firestore } from './firebase';
 import { doc, setDoc } from 'firebase/firestore';
 import { createUserWithEmailAndPassword, sendEmailVerification, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import './LoginForm.css';
@@ -43,7 +43,7 @@ function Signup() {
       });
 
       if (user.emailVerified) {
-        navigate('/new');
+        navigate('/');
       } else {
         await sendEmailVerification(user);
         navigate('/verify-email');
