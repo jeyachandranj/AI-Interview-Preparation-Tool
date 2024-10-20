@@ -19,6 +19,7 @@ const App = () => {
     setIsOpen(!isOpen);
   };
 
+
   return (
     <div className="app-container">
       {/* Animated Navbar */}
