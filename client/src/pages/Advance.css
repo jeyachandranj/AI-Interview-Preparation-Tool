@@ -491,3 +491,48 @@ background-color: #45A049;
 }
 
 
+.switch {
+	position: relative;
+	width: 70px;
+	height: 70px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: rgb(60, 64, 67);
+	color: #fff;
+	border-radius: 50%;
+	cursor: pointer;
+	transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  .mic-on, .mic-off {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transition: all 0.3s ease-in-out;
+  }
+  .mic-on {
+	z-index: 4;
+  }
+  .mic-off {
+	position: absolute;
+	inset: 0;
+	z-index: 5;
+	opacity: 0;
+  }
+  #checkbox {
+	display: none;
+  }
+  #checkbox:checked + .switch {
+	background-color: red;
+  }
+  #checkbox:checked + .switch .mic-off {
+	opacity: 1;
+  }
+  #checkbox:active + .switch {
+	transform: scale(1.2);
+  }
+  .switch:hover {
+	background-color: rgba(60, 64, 67, 0.8);
+  }

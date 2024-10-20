@@ -36,7 +36,7 @@ const Writing = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen w-full  p-6">
+    <div className="flex items-center justify-center min-h-screen p-6">
       <div className="bg-white rounded-lg shadow-lg p-10 w-2000px  flex flex-col">
         <h1 className="text-2xl font-bold text-center text-purple-800 mb-4">Writing Comprehension</h1>
         {question && <p className="text-gray-700 mb-4"><strong>Question:</strong> {question}</p>}

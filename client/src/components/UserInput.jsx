@@ -61,13 +61,13 @@ const UserInput = ({ setResponse, isChatbotReady, setIsChatbotReady, response })
   const callStageAPI = async () => {
     try {
       const currentTime = Date.now();
-      const interviewDuration = currentTime-interviewStartTime;
-      console.log("currentTime",currentTime)
-      console.log("inter startTime",interviewStartTime);
+      const interviewDuration = currentTime - interviewStartTime;
+      console.log("currentTime", currentTime)
+      console.log("inter startTime", interviewStartTime);
       const result = await fetch(`http://localhost:3000/api/evaluateInterview?name=${name}&interviewDuration=${interviewDuration}`);
       const data = await result.json();
 
-      console.log("api data",data);
+      console.log("api data", data);
 
       if (data) {
         setCurrentStage(data.currentStage);
@@ -79,7 +79,7 @@ const UserInput = ({ setResponse, isChatbotReady, setIsChatbotReady, response })
         } else if (data.status === "fail") {
           setPopupMessage("Sorry, you failed the current stage.");
           setPopupVisible(true);
-        
+
         }
         setTimeout(() => {
           setPopupVisible(false);
@@ -92,7 +92,7 @@ const UserInput = ({ setResponse, isChatbotReady, setIsChatbotReady, response })
 
   const closePopup = () => {
     setPopupVisible(false);
-    setPopupMessage(""); 
+    setPopupMessage("");
   };
 
 
@@ -101,9 +101,9 @@ const UserInput = ({ setResponse, isChatbotReady, setIsChatbotReady, response })
       try {
         const response = await fetch('http://127.0.0.1:5000/object_detected');
         const data = await response.json();
-        console.log("data",data.confidence);
+        console.log("data", data.confidence);
         if (data) {
-          alert(`Alert! ${data.class_name} detected!`);
+          // alert(`Alert! ${data.class_name} detected!`);
         }
       } catch (error) {
         console.error("Error fetching detected objects:", error);
@@ -115,27 +115,34 @@ const UserInput = ({ setResponse, isChatbotReady, setIsChatbotReady, response })
   }, []);
 
 
-  useEffect(() => {
+  const initializeSpeechRecognition = () => {
     if (!('webkitSpeechRecognition' in window)) {
       console.log("Your browser does not support speech recognition.");
     } else {
       recognition.current = new window.webkitSpeechRecognition();
       recognition.current.continuous = true;
-      recognition.current.interimResults = false;
+      recognition.current.interimResults = true;
       recognition.current.lang = "en-US";
-
+  
       recognition.current.onresult = (event) => {
-        const transcript = event.results[event.results.length - 1][0].transcript.trim();
-        console.log("Speech to Text:", transcript);
+        let transcript = "";
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          transcript += event.results[i][0].transcript;
+        }
         setSpeechText(transcript);
       };
+  
       recognition.current.onerror = (event) => {
         console.log("Speech recognition error:", event.error);
       };
     }
+  };
+  
+  useEffect(() => {
+    initializeSpeechRecognition();
   }, []);
 
-  useEffect(() => { console.log("Updated speechText:", speechText); }, [speechText]);
+  
 
 
   const debouncedSendMessage = debounce((message) => {
@@ -207,7 +214,7 @@ const UserInput = ({ setResponse, isChatbotReady, setIsChatbotReady, response })
             return prevIndex + 1;
           } else {
             clearInterval(timer);
-            setChunks([]); 
+            setChunks([]);
             return prevIndex;
           }
         });
@@ -215,6 +222,16 @@ const UserInput = ({ setResponse, isChatbotReady, setIsChatbotReady, response })
       return () => clearInterval(timer);
     }
   }, [chunks]);
+
+  useEffect(() => {
+    return () => {
+      if (recognition.current) {
+        recognition.current.stop();
+        recognition.current = null;
+      }
+    };
+  }, []);
+  
 
   useEffect(() => {
     let interval = null;
@@ -234,84 +251,23 @@ const UserInput = ({ setResponse, isChatbotReady, setIsChatbotReady, response })
     return `${mins}:${secs < 10 ? "0" : ""}${secs}`;
   };
 
-
-  const generatePDF = () => {
-    const score = 34;
-    const doc = new jsPDF();
-
-    doc.setFontSize(18);
-    doc.text("Test Score Report", 105, 20, { align: "center" });
-
-    doc.setLineWidth(0.5);
-    doc.rect(10, 25, 190, 250); // Box around the entire report
-
-    doc.setFontSize(12);
-    let yPos = 30;
-    doc.text("Congratulations!! You have successfully completed your interview.", 20, yPos, { maxWidth: 170 });
-
-    yPos += 10;
-    doc.text(`Your Score: ${score} / 100`, 20, yPos);
-
-    yPos += 10;
-    doc.text("This is a test PDF generated after submitting the test.", 20, yPos, { maxWidth: 170 });
-
-    // Adjusted to prevent overflow
-    const longText = "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).";
-
-    yPos += 10;
-    doc.text(longText, 20, yPos, { maxWidth: 170 });
-
-    yPos += 60; // Adjust spacing after the long text
-    doc.text("We appreciate your effort.", 20, yPos);
-
-    yPos += 20;
-    doc.setFontSize(14);
-    doc.text("Skill Report", 20, yPos);
-
-    yPos += 10;
-    doc.setFontSize(12);
-    doc.text("Skill", 30, yPos);
-    doc.text("Score", 120, yPos);
-
-    yPos += 5;
-    const rowHeight = 10;
-    const tableWidth = 160;
-
-    // Define skill data
-    const skills = [
-      { name: "Skills", score: "8/10" },
-      { name: "Performance", score: "9/10" },
-      { name: "Experience", score: "7/10" },
-      { name: "Projects", score: "9/10" }
-    ];
-
-    // Draw table borders dynamically and fill in skill data
-    skills.forEach((skill, index) => {
-      const currentY = yPos + (index + 1) * rowHeight;
-      doc.rect(30, currentY, tableWidth, rowHeight); // Row border
-      doc.text(skill.name, 32, currentY + 7);
-      doc.text(skill.score, 122, currentY + 7);
-    });
-
-    // Final section for long text after table
-    const finalTextStartY = yPos + (skills.length + 1) * rowHeight + 10;
-    doc.text(longText, 20, finalTextStartY, { maxWidth: 170 });
-
-    const appreciationTextY = finalTextStartY + 50;
-    doc.text("We appreciate your effort.", 20, appreciationTextY);
-
-    // Footer text
-    doc.setFontSize(10);
-    doc.setTextColor(100);
-    doc.text("Generated by Listening Shine Logistics", 105, 285, { align: "center" });
-
-    // Save PDF
-    doc.save("test_score_3.pdf");
+  const handleInputChange = (e) => {
+    setSpeechText(e.target.value);
+    autoResize(e.target);
   };
+
+  // Function to auto-resize the textarea
+  const autoResize = (element) => {
+    element.style.height = "auto";  // Reset the height
+    element.style.height = element.scrollHeight + "px";  // Adjust height based on scroll
+  };
+
+
+
 
   return (
     <div className="chatbotInputWrap" style={{ width: "300px" }}>
-       <div className="stage-info" style={{ position: "absolute", top: "10px", right: "10px" }}>
+      <div className="stage-info" style={{ position: "absolute", top: "10px", right: "10px" }}>
         <p>Current Stage: {currentStage}</p>
         <p>Completed Stages: {completedStages}</p>
       </div>
@@ -344,54 +300,70 @@ const UserInput = ({ setResponse, isChatbotReady, setIsChatbotReady, response })
           <div className="chatbotInput" data-listening={listening}>
             <div className="chatbotInput_container">
               <form onSubmit={(e) => e.preventDefault()} className="inputForm">
-                <div className="microphoneIcon" onClick={toggleListening}>
-                  <img
-                    src={mic}
-                    alt="Mic"
-                    style={{
-                      width: "100px",
-                      height: "100px",
-                      marginBottom: "50px",
-                      marginLeft: "200px",
-                    }}
-                  />
+                <div className="microphoneIcon" >
+                  <input type="checkbox" id="checkbox" onChange={toggleListening} />
+                  <label className="switch" htmlFor="checkbox">
+                    <div className="mic-on">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        fill="currentColor"
+                        className="bi bi-mic-fill"
+                        viewBox="0 0 16 16"
+                      >
+                        <path d="M5 3a3 3 0 0 1 6 0v5a3 3 0 0 1-6 0V3z"></path>
+                        <path d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5z"></path>
+                      </svg>
+                    </div>
+                    <div className="mic-off">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        fill="currentColor"
+                        className="bi bi-mic-mute-fill"
+                        viewBox="0 0 16 16"
+                      >
+                        <path d="M13 8c0 .564-.094 1.107-.266 1.613l-.814-.814A4.02 4.02 0 0 0 12 8V7a.5.5 0 0 1 1 0v1zm-5 4c.818 0 1.578-.245 2.212-.667l.718.719a4.973 4.973 0 0 1-2.43.923V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 1 0v1a4 4 0 0 0 4 4zm3-9v4.879L5.158 2.037A3.001 3.001 0 0 1 11 3z"></path>
+                        <path d="M9.486 10.607 5 6.12V8a3 3 0 0 0 4.486 2.607zm-7.84-9.253 12 12 .708-.708-12-12-.708.708z"></path>
+                      </svg>
+                    </div>
+                  </label>
+
                 </div>
-                <input
-                  value={speechText}
+                <textarea
                   ref={inputRef}
-                  onChange={(e) => setSpeechText(e.target.value)}
+                  value={speechText}
+                  onChange={handleInputChange}
                   style={{
                     color: "white",
                     backgroundColor: "black",
-                    fontSize: "30px",
-                    marginLeft: "700px",
-                    width: "900px",
+                    fontSize: "20px",
+                    marginLeft: "800px",
+                    width: "800px",
+                    maxHeight: "200px",
+                    overflow: "hidden",
                   }}
-                  placeholder="Type a message..."
+                  placeholder="Speak or type a message..."
                 />
-                <div
-                  className="settingsButton"
-                  onClick={() => setVisible(true)}
-                >
-                  <i className="fas fa-cog"></i>
-                </div>
               </form>
             </div>
           </div>
 
           {!visible && (
-            <div className="timerDisplay" style={{marginLeft:"300px"}}>
+            <div className="timerDisplay" style={{ marginLeft: "300px" }}>
               <p className="timerText">{formatTime(timer)}</p>
             </div>
           )}
 
-      <div className="videoFeed" style={{ position: "fixed", top: "0", right: "0px", width: "300px", height: "200px", border: "2px solid #ccc"  }}>
-          <img
+          <div className="videoFeed" style={{ position: "fixed", top: "0", right: "0px", width: "300px", height: "200px", border: "2px solid #ccc" }}>
+            <img
               src="http://127.0.0.1:5000/video_feed"
               alt="Video Stream"
               style={{ width: "100%", height: "100%", objectFit: "cover" }}
-          />
-      </div>
+            />
+          </div>
 
           <div className="chatbotSettings" data-visible={visible}>
             <SettingsDisplay

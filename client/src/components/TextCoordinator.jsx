@@ -88,7 +88,7 @@ const TestCoordinator = ({ selectedSkills }) => {
 
   const handleNextTest = () => {
     setShowPopup(false);
-    setTimeRemaining(10); // Reset timer for the next test
+    setTimeRemaining(15); // Reset timer for the next test
     switch (currentTest) {
       case 'listening':
         setCurrentTest('speaking');

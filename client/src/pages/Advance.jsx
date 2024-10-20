@@ -62,13 +62,13 @@ function App() {
 
   return (
     <div className="main-container" data-chatbot-ready={isChatbotReady}>
-      <Modal 
-        isOpen={showFullscreenModal} 
-        onClose={() => setShowFullscreenModal(false)} 
-        onConfirm={requestFullscreen} 
-      />
+        {/* <Modal 
+          isOpen={showFullscreenModal} 
+          onClose={() => setShowFullscreenModal(false)} 
+          onConfirm={requestFullscreen} 
+        /> */}
       {!isChatbotReady && (
-        <div className="loading-overlay">
+        <div className="loading-overlay">hi hello how are you
           <img src = {logo} alt="Loading..." className="loading-gif" />
         </div>
       )}

@@ -108,7 +108,7 @@ app.get('/api/evaluateInterview', async (req, res) => {
 //READING
 
 
-const groq = new Groq({ apiKey: "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" });
+const groq = new Groq({ apiKey: "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" });
 
 const fetchParagraph = async () => {
   const { default: fetch } = await import('node-fetch');
@@ -230,7 +230,7 @@ async function generateFeedback(letter) {
     {
       "grammarMistakes": 10,
       "spellingMistakes": 5,
-      "totalMarks": 20,
+      "totalMarks": 10,
       "feedback": "sentence"
     }      
         Provide the response in the JSON format shown above without any additional text or explanation and Json List Must contain only 1 Object
