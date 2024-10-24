@@ -107,15 +107,17 @@ app.get('/api/evaluateInterview', async (req, res) => {
 
 //SKILLS
 
-
 const skillsScoreSchema = new mongoose.Schema({
-  name: { type: String, default: 'xxx' },
+  email: { type: String, default: 'xxx' },
   listening_score: { type: Number, default: 0 },
   reading_score: { type: Number, default: 0 },
   writing_score: { type: Number, default: 0 },
   speaking_score: { type: Number, default: 0 },
 });
+
+// Create a Mongoose model based on the schema
 const SkillsScore = mongoose.model('SkillsScore', skillsScoreSchema);
+
 
 //READING
 
@@ -391,26 +393,28 @@ app.post('/analyze', async (req, res) => {
 //score skills
 app.post('/update-skill-score', async (req, res) => {
   try {
-    const { listening_score, reading_score, writing_score, speaking_score } = req.body;
+    // Retrieve scores from request body
+    const { name ,listening_score, reading_score, writing_score, speaking_score } = req.body;
 
-    let skillsScore = await SkillsScore.findOneAndUpdate(
-      { name: 'xxx' }, 
-      {
-        listening_score: listening_score || 0,
-        reading_score: reading_score || 0,
-        writing_score: writing_score || 0,
-        speaking_score: speaking_score || 0,
-      },
-      { new: true, upsert: true } // Creates a new document if none exists
-    );
+    // Create a new skills score document
+    const newSkillsScore = new SkillsScore({
+      email:'xxx',
+      listening_score: listening_score || 0,
+      reading_score: reading_score || 0,
+      writing_score: writing_score || 0,
+      speaking_score: speaking_score || 0,
+    });
 
-    res.status(200).json(skillsScore);
+    // Save the new skills score document
+    await newSkillsScore.save(); // Make sure this is inside the async function
+
+    // Respond with a success message
+    res.status(201).json({ message: 'Skills score saved successfully', newSkillsScore });
   } catch (error) {
-    console.error('Error updating skills score:', error);
+    console.error('Error saving skills score:', error);
     res.status(500).json({ message: 'Internal server error' });
   }
 });
-
 
 app.use(express.json());
 app.use(bodyParser.json());
@@ -420,5 +424,4 @@ const port = process.env.PORT || 3000;
 server.listen(port, () => {
     console.log(`Server started at http://localhost:${port}`);
 });
-
 

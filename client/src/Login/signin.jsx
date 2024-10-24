@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { auth } from './firebase';
 import { signInWithEmailAndPassword, sendPasswordResetEmail, GoogleAuthProvider, signInWithPopup, onAuthStateChanged } from 'firebase/auth';
+import axios from 'axios';  // Import axios for API calls
 import './LoginForm.css';
 
 function Signin() {
@@ -31,8 +32,26 @@ function Signin() {
 
     try {
       await signInWithEmailAndPassword(auth, email, password);
+      // After successful login, send the email to the backend API to update the skills score
+      await updateSkillsScore();
     } catch (error) {
       setError("Invalid Login Credentials");
+    }
+  };
+
+  const updateSkillsScore = async () => {
+    try {
+      const response = await axios.post('/update-skill-score', {
+        email: email,  // Pass email here
+        listening_score: 0, // Example scores, replace with actual values
+        reading_score: 0,
+        writing_score: 0,
+        speaking_score: 0,
+      });
+
+      console.log('Skills score updated:', response.data);
+    } catch (error) {
+      console.error('Error updating skill score:', error);
     }
   };
 

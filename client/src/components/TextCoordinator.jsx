@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import SpeakingTest from '../pages/Speaking';
 import ReadingTest from '../pages/Reading';
 import ListeningTest from '../pages/Listening';
+import WritingTest from '../pages/Writing';
 import './TextCoordinator.css';
 
 const TestCoordinator = ({ selectedSkills }) => {
@@ -84,6 +85,8 @@ const TestCoordinator = ({ selectedSkills }) => {
         return selectedSkills.read ? <ReadingTest /> : <h2>Please select Reading Test.</h2>;
       case 'listening':
         return selectedSkills.listen ? <ListeningTest /> : <h2>Please select Listening Test.</h2>;
+      case 'writing':
+        return selectedSkills.write ? <WritingTest /> : <h2>Please select Listening Test.</h2>;
       case 'completed':
         return <h2 className="text-center">All tests completed! Thank you.</h2>;
       default:
@@ -100,7 +103,7 @@ const TestCoordinator = ({ selectedSkills }) => {
         <h1 className="text-2xl font-bold text-red-800 mb-2">
           {currentTest === 'completed' ? "Test Completed!" : `${currentTest.charAt(0).toUpperCase() + currentTest.slice(1)} Test`}
         </h1>
-        <p className="text-lg text-white">Time remaining: {Math.floor(timeRemaining / 60)}:{(timeRemaining % 60).toString().padStart(2, '0')}</p>
+        <p className="text-lg text-red">Time remaining: {Math.floor(timeRemaining / 60)}:{(timeRemaining % 60).toString().padStart(2, '0')}</p>
       </div>
       <div className="flex-grow max-w-lg w-full">
         {renderCurrentTest()}
