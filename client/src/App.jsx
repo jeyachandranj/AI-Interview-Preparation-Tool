@@ -13,6 +13,10 @@ import Listen from './pages/Listening';
 import Signin from './Login/signin';
 import Signup from './Login/signup';
 import VerifyEmail from './Login/VerifyPage';
+import FaceDetection from "./components/FaceDetection";
+import Layout from "./components/Layout";
+import UserSelect from "./components/UserSelect";
+import Protected from "./components/Protected";
 
 function App() {
   const location = useLocation();
@@ -37,6 +41,13 @@ function App() {
         <Route path="/read" element={<Reading />} />
         <Route path="/write" element={<Writing />} />
         <Route path="/listen" element={<Listen />} />
+
+        <Route path="/" element={<Layout />}>
+          <Route path="/uploadface" element={<UserSelect />} />
+          <Route path="face" element={<FaceDetection />} />
+          <Route path="protected" element={<Protected />} />
+          {/* <Route path="*" element={<Navigate to="/" />} /> */}
+        </Route>
       </Routes>
     </div>
   );

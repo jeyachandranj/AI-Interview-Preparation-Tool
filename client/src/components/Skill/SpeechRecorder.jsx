@@ -86,9 +86,13 @@ const SpeechRecorder = () => {
   const handleFeedback = () => {
     alert("Feedback button clicked!");
   };
+  // Save scores to local storage whenever scores change
+  useEffect(() => {
+    localStorage.setItem('speaking-score', JSON.stringify(scores));
+  }, [scores]);
   return (
     <div className="h-screen flex items-center justify-center p-6 font-bold" >
-      <div className="flex space-x-4" style={{width:"1500px",marginLeft:"1000px",marginBottom:"300px"}}>
+      <div className="flex space-x-4" style={{width:"1500px",marginLeft:"450px"}}>
         {/* Speech Recorder Container */}
         <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full" >
           <div className="input-group">
@@ -116,10 +120,10 @@ const SpeechRecorder = () => {
           <button onClick={handleFeedback} className="feedback-button bg-gray-500 text-white py-2 px-4 rounded">Feedback</button>
         </div>
         {/* Score Display Container */}
-        {/* <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
+        <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
           <h2 className="text-lg font-bold">Overall Band Score</h2>
           <ScoreDisplay scores={scores} />
-        </div> */}
+        </div>
       </div>
     </div>
   );

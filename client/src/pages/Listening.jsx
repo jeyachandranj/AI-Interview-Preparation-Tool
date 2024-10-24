@@ -1,12 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import  { useState, useEffect } from 'react';
 import ReactPlayer from 'react-player';
 import Confetti from 'react-confetti';
 import videos from '../components/Skill/videos.json';
 import QuestionPalette from '../components/Skill/QuestionPalette';
 import './Listening.css';
-// import starImage from '../assets/star.gif'; // Ensure you have this image in the specified directory
-// import emptyStarImage from '../assets/empty-star.jpeg'; // Optional: Include an empty star image for unachieved scores
-
 function Listening() {
   const [randomVideo, setRandomVideo] = useState(null);
   const [showQuestionPage, setShowQuestionPage] = useState(false);
@@ -17,7 +14,6 @@ function Listening() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [flippedLetters, setFlippedLetters] = useState(new Array(20).fill(false));
-
   // Fetch random video and generate questions
   useEffect(() => {
     const selectRandomVideo = () => {
@@ -26,13 +22,11 @@ function Listening() {
     };
     selectRandomVideo();
   }, []);
-
   useEffect(() => {
     if (randomVideo) {
       fetchParagraphAndGenerateQuestions(randomVideo.subtitle);
     }
   }, [randomVideo]);
-
   const fetchParagraphAndGenerateQuestions = async (subtitle) => {
     try {
       const response = await fetch('http://localhost:3000/listen-generate-content', {
@@ -49,10 +43,10 @@ function Listening() {
       console.error('Error fetching questions:', error);
     }
   };
-
   // Score calculation on submit
   const handleSubmit = () => {
     let newScore = 0;
+    // Calculate the score
     questions.forEach((question, index) => {
       if (question.answer === selectedAnswers[index]) {
         newScore += 1;
@@ -60,10 +54,11 @@ function Listening() {
     });
     setScore(newScore);
     setIsModalOpen(true);
+    // Store the score in localStorage with the key 'listen-score'
+    localStorage.setItem('listen-score', newScore);
+    console.log('Score stored in localStorage:', newScore);
   };
-
   const closeModal = () => setIsModalOpen(false);
-
   // Star rendering function
   const renderStars = () => {
     const stars = [];
@@ -79,20 +74,16 @@ function Listening() {
     }
     return stars;
   };
-
   // Navigation logic
   const handleNextQuestion = () => currentQuestionIndex < questions.length - 1 && setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
   const handlePreviousQuestion = () => currentQuestionIndex > 0 && setCurrentQuestionIndex((prevIndex) => prevIndex - 1);
-
   // Handle letter flipping animation
   const handleLetterClick = (index) => {
     const newFlippedLetters = [...flippedLetters];
     newFlippedLetters[index] = !newFlippedLetters[index];
     setFlippedLetters(newFlippedLetters);
   };
-
-  const title = "";
-
+  const title = "Listening Comprehension";
   return (
     <div className="App">
       {/* Animated Title */}
@@ -108,12 +99,11 @@ function Listening() {
           </span>
         ))}
       </h1>
-
       {/* Video and Question Page */}
       {randomVideo && (
-        <div className="cord" style={{height:"700px",marginLeft:'-90px'}}>
-          <div className="flex-container" >
-            <div className="player-wrapper" style={{height:"600px"}}>
+        <div className="cord" style={{height:"700px"}}>
+          <div className="flex-container">
+            <div className="player-wrapper">
               <ReactPlayer
                 className="react-player"
                 url={randomVideo.url}
@@ -127,17 +117,16 @@ function Listening() {
                 height="100%"
               />
             </div>
-
             {/* Questions Display */}
             {showQuestionPage && (
-              <div className="question-page" style={{height:"600px",width:"800px"}}>
+              <div className="question-page" style={{height:"650px",width:"800px"}}>
                 <QuestionPalette
                   totalQuestions={questions.length}
                   currentQuestion={currentQuestionIndex}
                   onSelectQuestion={(index) => setCurrentQuestionIndex(index)}
                   selectedAnswers={selectedAnswers}
                 />
-                <div className="questions-container" style={{height:"600px",width:" 500px"}}>
+                <div className="questions-container">
                   <div className="question-navigation">
                     <h2 className="questions-header">Question {currentQuestionIndex + 1} of {questions.length}</h2>
                   </div>
@@ -166,7 +155,6 @@ function Listening() {
                     </div>
                   )}
                 </div>
-
                 {/* Navigation Buttons */}
                 <div className="navigation-buttons">
                   <button onClick={handlePreviousQuestion} disabled={currentQuestionIndex === 0} className="nav-button">Prev</button>
@@ -176,7 +164,6 @@ function Listening() {
                     <button onClick={handleSubmit} className="nav-button">Submit</button>
                   )}
                 </div>
-
                 {/* Score Modal with Stars */}
                 {isModalOpen && (
                   <div className="score-modal">
@@ -184,9 +171,8 @@ function Listening() {
                     <div className="score-modal-content">
                       <div className="close-button" onClick={closeModal}>X</div>
                       <div className="stars-display-horizontal">
-  {renderStars()}
-</div>
-
+                        {renderStars()}
+                      </div>
                       <h3 className="score">Your Score: {score} / {questions.length}</h3>
                     </div>
                   </div>
@@ -199,5 +185,4 @@ function Listening() {
     </div>
   );
 }
-
 export default Listening;

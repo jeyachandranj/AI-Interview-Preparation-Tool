@@ -1,25 +1,21 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import '../Skill/Questions.css';
-
 const Questions = ({ questions }) => {
   const [selectedAnswers, setSelectedAnswers] = useState(Array(questions.questions.length).fill(""));
   const [score, setScore] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0); 
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [visitedQuestions, setVisitedQuestions] = useState(Array(questions.questions.length).fill(false));
-
   // Handle answer change
   const handleChange = (e, index) => {
     const newAnswers = [...selectedAnswers];
     newAnswers[index] = e.target.value;
     setSelectedAnswers(newAnswers);
-
     // Mark question as answered and visited
     const newVisited = [...visitedQuestions];
     newVisited[index] = true; // Mark this question as visited
     setVisitedQuestions(newVisited);
   };
-
   // Handle form submit
   const handleSubmit = () => {
     let newScore = 0;
@@ -28,15 +24,15 @@ const Questions = ({ questions }) => {
         newScore += 1;
       }
     });
+    // Store the score in local storage
+    localStorage.setItem('reading-score', newScore);
     setScore(newScore);
     setIsModalOpen(true);
   };
-
   // Close modal
   const closeModal = () => {
     setIsModalOpen(false);
   };
-
   // Navigate to next question
   const handleNext = () => {
     if (currentQuestionIndex < questions.questions.length - 1) {
@@ -47,7 +43,6 @@ const Questions = ({ questions }) => {
       setVisitedQuestions(newVisited);
     }
   };
-
   // Navigate to previous question
   const handlePrevious = () => {
     if (currentQuestionIndex > 0) {
@@ -58,7 +53,6 @@ const Questions = ({ questions }) => {
       setVisitedQuestions(newVisited);
     }
   };
-
   // Jump to a specific question
   const handleJumpToQuestion = (index) => {
     setCurrentQuestionIndex(index);
@@ -66,16 +60,13 @@ const Questions = ({ questions }) => {
     newVisited[index] = true; // Mark this question as visited
     setVisitedQuestions(newVisited);
   };
-
   return (
-    <div className="questions-container" style={{height:"600px",width:"1200px"}}>
+    <div className="questions-container">
       <h2 className="questions-header">Questions</h2>
-
       {/* Question Number Navigation */}
       <div className="question-navigation">
         {questions.questions.map((_, index) => {
           let buttonClass = '';
-
           // Check if the question is answered
           if (selectedAnswers[index]) {
             buttonClass = 'answered';
@@ -84,7 +75,6 @@ const Questions = ({ questions }) => {
           } else {
             buttonClass = 'not-visited';
           }
-
           return (
             <button
               key={index}
@@ -96,7 +86,6 @@ const Questions = ({ questions }) => {
           );
         })}
       </div>
-
       {/* Current Question */}
       {Array.isArray(questions.questions) && questions.questions.length > 0 ? (
         <div className="question-block">
@@ -118,7 +107,6 @@ const Questions = ({ questions }) => {
               </label>
             ))}
           </div>
-
           {/* Navigation Buttons */}
           <div className="question-navigation-buttons">
             <button onClick={handlePrevious} className="nav-button" disabled={currentQuestionIndex === 0}>
@@ -132,12 +120,10 @@ const Questions = ({ questions }) => {
       ) : (
         <p>No questions available.</p>
       )}
-
       {/* Submit Button */}
       {currentQuestionIndex === questions.questions.length - 1 && (
         <button onClick={handleSubmit} className="submit-button">Submit</button>
       )}
-
       {/* Score Modal */}
       {isModalOpen && (
         <div className="score-modal" style={{ display: 'flex' }}>
@@ -150,5 +136,4 @@ const Questions = ({ questions }) => {
     </div>
   );
 };
-
 export default Questions;

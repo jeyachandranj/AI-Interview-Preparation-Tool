@@ -8,6 +8,8 @@ const cors = require('cors')
 const fs = require('fs');
 const bodyParser = require('body-parser');
 const path = require('path');
+const mongoose = require("mongoose");
+
 
 dotenv.config();
 const Groq = require('groq-sdk');
@@ -104,6 +106,16 @@ app.get('/api/evaluateInterview', async (req, res) => {
 
 
 //SKILLS
+
+
+const skillsScoreSchema = new mongoose.Schema({
+  name: { type: String, default: 'xxx' },
+  listening_score: { type: Number, default: 0 },
+  reading_score: { type: Number, default: 0 },
+  writing_score: { type: Number, default: 0 },
+  speaking_score: { type: Number, default: 0 },
+});
+const SkillsScore = mongoose.model('SkillsScore', skillsScoreSchema);
 
 //READING
 
@@ -375,6 +387,29 @@ app.post('/analyze', async (req, res) => {
   }
 });
 
+
+//score skills
+app.post('/update-skill-score', async (req, res) => {
+  try {
+    const { listening_score, reading_score, writing_score, speaking_score } = req.body;
+
+    let skillsScore = await SkillsScore.findOneAndUpdate(
+      { name: 'xxx' }, 
+      {
+        listening_score: listening_score || 0,
+        reading_score: reading_score || 0,
+        writing_score: writing_score || 0,
+        speaking_score: speaking_score || 0,
+      },
+      { new: true, upsert: true } // Creates a new document if none exists
+    );
+
+    res.status(200).json(skillsScore);
+  } catch (error) {
+    console.error('Error updating skills score:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
 
 
 app.use(express.json());
